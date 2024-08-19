@@ -1,5 +1,6 @@
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/Screens/mainpage.dart';
+import 'package:cultiva/Screens/signup.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,6 +76,8 @@ class _LoginpageState extends State<Loginpage> {
                           width: ScreenWidth * 0.85,
                           child: TextFormField(
                             controller: usernamecntrlr,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.3),
@@ -95,6 +98,8 @@ class _LoginpageState extends State<Loginpage> {
                           width: ScreenWidth * 0.85,
                           child: TextFormField(
                             controller: passwordcntrlr,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.3),
@@ -149,7 +154,7 @@ class _LoginpageState extends State<Loginpage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Loginhomescreen()));
+                                    builder: (context) => Signup()));
                           },
                           child: Text(
                             "Sign Up",

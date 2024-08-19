@@ -16,9 +16,13 @@ class User extends HiveObject {
   @HiveField(3)
   int Phonenumber;
 
+  @HiveField(4)
+  String? profileImage;
+
   User(
       {required this.username,
       required this.email,
       required this.password,
-      required this.Phonenumber});
+      required this.Phonenumber,
+      this.profileImage});
 }

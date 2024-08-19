@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cultiva/Account%20Pages/editProfile.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
@@ -77,23 +80,22 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: 40,
                 ),
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image:
-                              AssetImage('Assets/profile.png'),
-                          fit: BoxFit.cover)),
-                ),
+                CircleAvatar(
+                  radius: 75,
+                  backgroundImage: _user.profileImage != null
+                      ? FileImage(File(_user.profileImage!))
+                      : AssetImage('Assets/profile.png') as ImageProvider,
+                )
               ],
             ),
           ),
           Column(
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Editprofile()));
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 202, 197, 51),
                     minimumSize: Size(160, 20),
@@ -111,7 +113,17 @@ class _ProfileState extends State<Profile> {
               Text(
                 _user.username,
                 style: GoogleFonts.judson(
-                    textStyle: TextStyle(color: Colors.black, fontSize: 23)),
+                    textStyle: TextStyle(color: Colors.black, fontSize: 25)),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                _user.Phonenumber.toString(),
+                style: GoogleFonts.judson(
+                    textStyle: TextStyle(
+                        color: const Color.fromARGB(255, 11, 11, 11),
+                        fontSize: 19)),
               ),
               SizedBox(
                 height: 30,
@@ -121,7 +133,7 @@ class _ProfileState extends State<Profile> {
                 style: GoogleFonts.judson(
                     textStyle: TextStyle(
                         color: const Color.fromARGB(255, 11, 11, 11),
-                        fontSize: 17)),
+                        fontSize: 18)),
               ),
               SizedBox(
                 height: 30,

@@ -20,95 +20,96 @@ class _LoginscreenState extends State<Loginhomescreen> {
 
     return Scaffold(
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 47),
+        child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 10,
+              ),
               GradientText(
-                  'Gardening is a work of a\n lifetime: you never finish',
-                  style: GoogleFonts.judson(
-                      textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-                  colors: [
-                    Colors.green,
-                    const Color.fromARGB(255, 199, 194, 194)
-                  ]),
-              SizedBox(
-                height: 0,
+                'Gardening is a work of a\n lifetime: you never finish',
+                style: GoogleFonts.judson(
+                  textStyle: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                colors: [
+                  Colors.green,
+                  const Color.fromARGB(255, 199, 194, 194),
+                ],
               ),
-              Column(
-                children: [CarouselItems()],
-              ),
-              SizedBox(
-                height: 99,
-              ),
+              const SizedBox(height: 30),
+              CarouselItems(), // Assuming this widget is correctly constrained
+              // const SizedBox(
+              //   height: 20,
+              // ),
               Container(
-                padding: EdgeInsets.all(20),
-                width: ScreenWidth * 1,
-                height: Screenheigth * 1,
+                padding: const EdgeInsets.all(45),
+                width: ScreenWidth,
+                height: Screenheigth * 0.49,
                 decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(24)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromARGB(
-                          255,
-                          142,
-                          200,
-                          144,
-                        ),
-                        Color.fromARGB(255, 12, 47, 13),
-                      ],
-                    )),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 56, 120, 58),
+                      Color.fromARGB(255, 12, 47, 13),
+                    ],
+                  ),
+                ),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 40), // Adjusted for balance
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => Loginpage()));
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const Loginpage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          minimumSize: Size(300, 60),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      child: Text(
+                        backgroundColor: Colors.green,
+                        minimumSize: const Size(400, 70),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
                         "Login",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
-                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => Signup()));
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const Signup(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 23, 65, 24),
-                          minimumSize: Size(300, 60),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      child: Text(
+                        backgroundColor: const Color.fromARGB(255, 23, 65, 24),
+                        minimumSize: const Size(400, 70),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
                         "SignUp",
                         style: TextStyle(color: Colors.white),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
-      )),
+      ),
     );
   }
 }

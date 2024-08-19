@@ -74,6 +74,7 @@ class _MyWidgetState extends State<Signup> {
                     width: ScreenWidth * 0.85,
                     child: TextFormField(
                       controller: nameController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
@@ -91,6 +92,7 @@ class _MyWidgetState extends State<Signup> {
                     width: ScreenWidth * 0.85,
                     child: TextFormField(
                       controller: emailController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
@@ -114,6 +116,7 @@ class _MyWidgetState extends State<Signup> {
                     width: ScreenWidth * 0.85,
                     child: TextFormField(
                       controller: numbercontroller,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           filled: true,
@@ -137,6 +140,7 @@ class _MyWidgetState extends State<Signup> {
                     width: ScreenWidth * 0.85,
                     child: TextFormField(
                       controller: passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),

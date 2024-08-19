@@ -8,7 +8,7 @@ class CarouselItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 200.0,
+          height: 300.0,
           autoPlay: true,
           aspectRatio: 16 / 9,
           enlargeCenterPage: true,
@@ -22,7 +22,12 @@ class CarouselItems extends StatelessWidget {
             .map((item) => Container(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(item, fit: BoxFit.cover, width: double.infinity,height: double.infinity,),
+                    child: Image.asset(
+                      item,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
                   ),
                 ))
             .toList(),

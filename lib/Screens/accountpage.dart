@@ -1,3 +1,4 @@
+import 'package:cultiva/Account%20Pages/addnewproduct.dart';
 import 'package:cultiva/Account%20Pages/privacy&policy.dart';
 import 'package:cultiva/Account%20Pages/profile.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
@@ -61,6 +62,12 @@ class _AccountpagesState extends State<Accountpages> {
                   ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Addnewproduct()));
+                  },
                   child: ListTile(
                     leading: FaIcon(FontAwesomeIcons.cartPlus),
                     title: Text(
