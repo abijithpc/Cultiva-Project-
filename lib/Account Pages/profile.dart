@@ -18,17 +18,26 @@ class _ProfileState extends State<Profile> {
   late User _user;
   bool _isLoading = true;
 
+  @override
   void initState() {
     super.initState();
     _fetchUser();
   }
 
   Future<void> _fetchUser() async {
-    final box = await Hive.openBox<User>('userBox');
-    final user = box.getAt(0);
+    final authBox = await Hive.openBox('authBox');
+    final currentIndex = authBox.get('currentUserIndex', defaultValue: 0);
+
+    final box = Hive.box<User>('userBox');
+    final user = box.getAt(currentIndex);
     if (user != null) {
       setState(() {
         _user = user;
+
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
         _isLoading = false;
       });
     }
@@ -94,7 +103,7 @@ class _ProfileState extends State<Profile> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Editprofile()));
+                      MaterialPageRoute(builder: (context) => Editprofile(user: _user,)));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 202, 197, 51),

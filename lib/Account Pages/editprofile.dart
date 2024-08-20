@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,33 +7,32 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Editprofile extends StatefulWidget {
-  const Editprofile({super.key});
+  final User user;
+
+  const Editprofile({super.key, required this.user});
 
   @override
   State<Editprofile> createState() => _EditprofileState();
 }
 
 class _EditprofileState extends State<Editprofile> {
-  TextEditingController editusername = TextEditingController();
-  TextEditingController editphonenumber = TextEditingController();
-  TextEditingController editemail = TextEditingController();
-  TextEditingController editpassword = TextEditingController();
+  late TextEditingController editusername;
+  late TextEditingController editphonenumber;
+  late TextEditingController editemail;
+  late TextEditingController editpassword;
   File? _image;
 
   @override
   void initState() {
     super.initState();
-    var box = Hive.box<User>('Userbox');
-    User? users = box.get(0);
 
-    if (users != null) {
-      editusername.text = users.username;
-      editphonenumber.text = users.Phonenumber.toString();
-      editemail.text = users.email;
-      editpassword.text = users.password;
-      if (users.profileImage != null) {
-        _image = File(users.profileImage!);
-      }
+    editusername = TextEditingController(text: widget.user.username);
+    editphonenumber =
+        TextEditingController(text: widget.user.Phonenumber.toString());
+    editemail = TextEditingController(text: widget.user.email);
+    editpassword = TextEditingController(text: widget.user.password);
+    if (widget.user.profileImage != null) {
+      _image = File(widget.user.profileImage!);
     }
   }
 
@@ -48,20 +48,18 @@ class _EditprofileState extends State<Editprofile> {
   }
 
   void saveProfile() async {
-    var box = await Hive.openBox<User>('UserBox');
+    final box = await Hive.openBox<User>('UserBox');
+    final index = box.values.toList().indexOf(widget.user);
 
-    int UserKey = 0;
-    User? user = box.get(0);
+    if (index != -1) {
+      User updatedUser = widget.user
+        ..username = editusername.text
+        ..Phonenumber = int.tryParse(editphonenumber.text) ?? 0
+        ..email = editemail.text
+        ..password = editpassword.text
+        ..profileImage = _image?.path;
 
-    if (user != null) {
-      user.username = editusername.text;
-      user.Phonenumber = int.tryParse(editphonenumber.text) ?? 0;
-      user.email = editemail.text;
-      user.password = editpassword.text;
-      user.profileImage = _image?.path;
-
-      await user.save();
-
+      await box.putAt(index, updatedUser);
       Navigator.pop(context);
     }
   }

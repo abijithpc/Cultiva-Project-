@@ -114,7 +114,7 @@ class _HomepageState extends State<Homepage> {
                             ),
                             const Text("Indoor")
                           ],
-                        ),
+                         ),
                       ],
                     )
                   ],

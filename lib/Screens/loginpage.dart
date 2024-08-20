@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 
-late Box<User> userBox;
-
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
 
@@ -187,6 +185,11 @@ class _LoginpageState extends State<Loginpage> {
     for (var user in users) {
       if (user.username == username && user.password == passwords) {
         founduser = true;
+
+        final authBox = await Hive.openBox('authBox');
+        await authBox.put(
+            'currentUserIndex', userBox.keys.toList().indexOf(user.key));
+
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const Mainpage()),
@@ -198,7 +201,7 @@ class _LoginpageState extends State<Loginpage> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.red,
         content: Text(
-          "incorrect Password or Username",
+          "Incorrect Password or Username",
           style: TextStyle(color: Colors.white),
         ),
       ));

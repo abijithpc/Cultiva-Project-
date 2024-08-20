@@ -2,6 +2,7 @@ import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/Screens/mainpage.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:cultiva/model/product.dart';
+import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -18,6 +19,10 @@ Future<void> main() async {
   //Product Adaptor
   Hive.registerAdapter(ProductAdapter());
   await Hive.openBox<Product>('ProductBox');
+
+  //sell details
+  Hive.registerAdapter(SellinfoAdapter());
+  await Hive.openBox<Sellinfo>('sellBox');
 
   final authBox = await Hive.openBox('authBox');
 

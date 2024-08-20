@@ -1,5 +1,6 @@
 import 'package:cultiva/Account%20Pages/addnewproduct.dart';
 import 'package:cultiva/Account%20Pages/privacy&policy.dart';
+import 'package:cultiva/Account%20Pages/productselled.dart';
 import 'package:cultiva/Account%20Pages/profile.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:flutter/material.dart';
@@ -26,102 +27,102 @@ class _AccountpagesState extends State<Accountpages> {
         centerTitle: true,
       ),
       body: SizedBox(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                GestureDetector(
-                  child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.addressBook),
-                    title: Text(
-                      "Account Details",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Profile()));
-                  },
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Privacy()));
-                  },
-                  child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.shieldHalved),
-                    title: Text(
-                      "Privacy & Policies",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              GestureDetector(
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.addressBook),
+                  title: Text(
+                    "Account Details",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Addnewproduct()));
-                  },
-                  child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.cartPlus),
-                    title: Text(
-                      "Add Products",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Profile()));
+                },
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Privacy()));
+                },
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.shieldHalved),
+                  title: Text(
+                    "Privacy & Policies",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
                   ),
                 ),
-                GestureDetector(
-                  child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.tag),
-                    title: Text(
-                      "Sold Details",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Addnewproduct()));
+                },
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.cartPlus),
+                  title: Text(
+                    "Add Products",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
                   ),
                 ),
-                GestureDetector(
-                  child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.solidClipboard),
-                    title: Text(
-                      "Overview",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Productselled()));
+                },
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.tag),
+                  title: Text(
+                    "Sold Details",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Loginhomescreen()));
-                  },
-                  child: ListTile(
-                    leading: FaIcon(
-                      FontAwesomeIcons.arrowRightFromBracket,
-                      color: Colors.red,
-                    ),
-                    title: Text(
-                      "Logout",
-                      style: GoogleFonts.judson(
-                          textStyle: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.w600)),
-                    ),
+              ),
+              GestureDetector(
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.solidClipboard),
+                  title: Text(
+                    "Overview",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
                   ),
                 ),
-              ],
-            ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Loginhomescreen()));
+                },
+                child: ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.arrowRightFromBracket,
+                    color: Colors.red,
+                  ),
+                  title: Text(
+                    "Logout",
+                    style: GoogleFonts.judson(
+                        textStyle: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600)),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

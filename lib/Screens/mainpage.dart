@@ -29,7 +29,9 @@ class _MainpageState extends State<Mainpage> {
         shape: CircularNotchedRectangle(),
         notchMargin: 5.0,
         clipBehavior: Clip.antiAlias,
+        padding: EdgeInsets.only(top: 10),
         child: SizedBox(
+          height: 100,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,

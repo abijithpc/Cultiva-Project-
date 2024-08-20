@@ -11,10 +11,10 @@ class Signup extends StatefulWidget {
   const Signup({super.key});
 
   @override
-  State<Signup> createState() => _MyWidgetState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _MyWidgetState extends State<Signup> {
+class _SignupState extends State<Signup> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -187,7 +187,7 @@ class _MyWidgetState extends State<Signup> {
   }
 
   Future<void> saveData() async {
-    final userBox = await Hive.openBox<User>("userBox");
+    final userBox = Hive.box<User>("userBox");
     final users = User(
       username: nameController.text,
       email: emailController.text,
