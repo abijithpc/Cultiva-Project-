@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cultiva/Screens/accountpage.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,7 +61,10 @@ class _EditprofileState extends State<Editprofile> {
         ..profileImage = _image?.path;
 
       await box.putAt(index, updatedUser);
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Accountpages()),
+          (Route<dynamic> Route) => false);
     }
   }
 

@@ -21,13 +21,14 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       customerNumber: fields[1] as String?,
       product: fields[2] as String?,
       quantity: fields[3] as int?,
+      date: fields[4] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Sellinfo obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.customerName)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       ..writeByte(2)
       ..write(obj.product)
       ..writeByte(3)
-      ..write(obj.quantity);
+      ..write(obj.quantity)
+      ..writeByte(4)
+      ..write(obj.date);
   }
 
   @override

@@ -49,7 +49,7 @@ class Productdetails extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Text(
               product.description ?? "No description available",
-              style: GoogleFonts.judson(textStyle: TextStyle(fontSize: 15)),
+              style: GoogleFonts.judson(textStyle: TextStyle(fontSize: 18)),
             ),
           )
         ],

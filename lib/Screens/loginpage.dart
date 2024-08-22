@@ -192,7 +192,11 @@ class _LoginpageState extends State<Loginpage> {
 
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const Mainpage()),
+            MaterialPageRoute(
+                builder: (context) => const Mainpage(
+                      sellinfo: null,
+                      selectedProduct: null,
+                    )),
             (route) => false);
         break;
       }

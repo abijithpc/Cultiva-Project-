@@ -1,11 +1,16 @@
 import 'package:cultiva/Screens/accountpage.dart';
 import 'package:cultiva/Screens/cartpage.dart';
 import 'package:cultiva/Screens/homepage.dart';
+import 'package:cultiva/model/product.dart';
+import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Mainpage extends StatefulWidget {
-  const Mainpage({super.key});
+  final Sellinfo? sellinfo;
+  final Product? selectedProduct;
+  const Mainpage(
+      {super.key, required this.sellinfo, required this.selectedProduct});
 
   @override
   State<Mainpage> createState() => _MainpageState();

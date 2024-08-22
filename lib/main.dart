@@ -24,6 +24,10 @@ Future<void> main() async {
   Hive.registerAdapter(SellinfoAdapter());
   await Hive.openBox<Sellinfo>('sellBox');
 
+  // cartdata
+
+  await Hive.openBox('cartBox');
+
   final authBox = await Hive.openBox('authBox');
 
   bool isLoggedIn = authBox.get('isLoggedIn', defaultValue: false);
@@ -43,7 +47,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? Mainpage() : Loginhomescreen(),
+      home: isLoggedIn
+          ? Mainpage(
+              selectedProduct: null,
+              sellinfo: null,
+            )
+          : Loginhomescreen(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cultiva/Screens/cartpage.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,17 @@ class Productselled extends StatefulWidget {
 }
 
 class _ProductselledState extends State<Productselled> {
+  Product? selectedProductObject;
   String? selectedProduct;
+  String? selectedproductPrice;
+  String? selectedImagePath;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController customernameCon = TextEditingController();
   final TextEditingController customerNumberCon = TextEditingController();
   final TextEditingController QuantityController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final List<Sellinfo> sellInfotlist = [];
+
   @override
   Widget build(BuildContext context) {
     double ScreenWidth = MediaQuery.of(context).size.width;
@@ -98,8 +105,15 @@ class _ProductselledState extends State<Productselled> {
                                       border: OutlineInputBorder()),
                                   items: products.map((product) {
                                     return DropdownMenuItem(
-                                        value: product.productname,
-                                        child: Text(product.productname!));
+                                      value: product.productname,
+                                      child: Text(product.productname!),
+                                      onTap: () {
+                                        selectedproductPrice = product.price;
+                                        selectedImagePath =
+                                            product.productimage;
+                                        selectedProductObject = product;
+                                      },
+                                    );
                                   }).toList(),
                                   onChanged: (value) {
                                     setState(() {
@@ -136,7 +150,9 @@ class _ProductselledState extends State<Productselled> {
                             height: 10,
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              saveDetails();
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     const Color.fromARGB(255, 23, 65, 24),
@@ -159,17 +175,27 @@ class _ProductselledState extends State<Productselled> {
         ));
   }
 
-  void SaveDetails() {
+  void saveDetails() {
     if (_formKey.currentState!.validate()) {
       final sellinfo = Sellinfo(
-          customerName: customernameCon.text,
-          customerNumber: customerNumberCon.text,
-          product: selectedProduct!,
-          quantity: int.parse(QuantityController.text));
-      final sellInfoBox = Hive.box<Sellinfo>('sellInfoBox');
-      sellInfoBox.add(sellinfo);
+        customerName: customernameCon.text,
+        customerNumber: customerNumberCon.text,
+        product: selectedProduct!,
+        quantity: int.parse(
+          QuantityController.text,
+        ),
+      );
 
-      Navigator.pop(context);
+      sellInfotlist.add(sellinfo);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Cartpage(
+                  sellInfoList: sellInfotlist,
+                  productList: [selectedProductObject!],
+                )),
+      );
     }
   }
 }
