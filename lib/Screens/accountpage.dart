@@ -103,7 +103,7 @@ class _AccountpagesState extends State<Accountpages> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

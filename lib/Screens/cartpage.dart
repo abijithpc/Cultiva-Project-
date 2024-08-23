@@ -30,8 +30,6 @@ class _CartpageState extends State<Cartpage> {
 
   @override
   Widget build(BuildContext context) {
-    // final productList = widget.productList ?? [];
-    // final sellInfoList = widget.sellInfoList ?? [];
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -51,7 +49,13 @@ class _CartpageState extends State<Cartpage> {
             itemBuilder: (context, index) {
               final sellInfo = sellInfoList[index];
               final product = productBox.values.firstWhere(
-                (prod) => prod.productname == sellInfo.product,orElse: () => Product(productname: 'Unknown', description: 'description', price: '0', productimage: '', producttype: 'Unknown'),
+                (prod) => prod.productname == sellInfo.product,
+                orElse: () => Product(
+                    productname: 'Unknown',
+                    description: 'description',
+                    price: '0',
+                    productimage: '',
+                    producttype: 'Unknown'),
               );
               // final product = productList[index];
               // final sellInfo =
@@ -76,7 +80,6 @@ class _CartpageState extends State<Cartpage> {
                                 child: ClipRRect(
                                     child: Image.file(
                                   File(product.productimage.toString()),
-                                  // 'Assets/PlantsImage/nick-hillier-AhAxCcVajHk-unsplash.jpg',
                                   fit: BoxFit.cover,
                                 ))),
                             Padding(
@@ -103,7 +106,7 @@ class _CartpageState extends State<Cartpage> {
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Text(
-                                        product.price ?? 'productPrice',
+                                        "₹${product.price}" ?? 'productPrice',
                                         style: GoogleFonts.judson(
                                             textStyle: TextStyle(
                                                 fontSize: 25,
