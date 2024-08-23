@@ -2,6 +2,7 @@ import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+part 'cartdata.g.dart';
 
 @HiveType(typeId: 3)
 class Cartdata extends HiveObject {

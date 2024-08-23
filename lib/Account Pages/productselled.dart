@@ -1,4 +1,3 @@
-import 'package:cultiva/Screens/cartpage.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +174,7 @@ class _ProductselledState extends State<Productselled> {
         ));
   }
 
-  void saveDetails() {
+  void saveDetails() async {
     if (_formKey.currentState!.validate()) {
       final sellinfo = Sellinfo(
         customerName: customernameCon.text,
@@ -186,16 +185,12 @@ class _ProductselledState extends State<Productselled> {
         ),
       );
 
-      sellInfotlist.add(sellinfo);
+      final box = await Hive.openBox<Sellinfo>('sellBox');
+      await box.add(sellinfo);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Cartpage(
-                  sellInfoList: sellInfotlist,
-                  productList: [selectedProductObject!],
-                )),
-      );
+      print(box);
+
+      Navigator.pop(context);
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/Screens/mainpage.dart';
+import 'package:cultiva/model/cartdata.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
@@ -25,8 +26,8 @@ Future<void> main() async {
   await Hive.openBox<Sellinfo>('sellBox');
 
   // cartdata
-
-  await Hive.openBox('cartBox');
+  Hive.registerAdapter(CartdataAdapter());
+  await Hive.openBox<Cartdata>('cartBox');
 
   final authBox = await Hive.openBox('authBox');
 
