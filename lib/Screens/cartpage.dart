@@ -57,9 +57,6 @@ class _CartpageState extends State<Cartpage> {
                     productimage: '',
                     producttype: 'Unknown'),
               );
-              // final product = productList[index];
-              // final sellInfo =
-              //     sellInfoList.length > index ? sellInfoList[index] : null;
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -128,17 +125,17 @@ class _CartpageState extends State<Cartpage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Name:${sellInfo?.customerName ?? 'customerName'}',
+                                  'Name:${sellInfo.customerName ?? 'customerName'}',
                                   style: GoogleFonts.judson(
                                       textStyle: TextStyle(fontSize: 18)),
                                 ),
                                 Text(
-                                  'PhoneNumber: ${sellInfo?.customerNumber ?? 'customerNumber'}',
+                                  'PhoneNumber: ${sellInfo.customerNumber ?? 'customerNumber'}',
                                   style: GoogleFonts.judson(
                                       textStyle: TextStyle(fontSize: 18)),
                                 ),
                                 Text(
-                                  'Quantity: ${sellInfo?.quantity ?? 'quantity'}',
+                                  'Quantity: ${sellInfo.quantity ?? 'quantity'}',
                                   style: GoogleFonts.judson(
                                       textStyle: TextStyle(fontSize: 18)),
                                 ),

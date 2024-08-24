@@ -23,7 +23,6 @@ class _SplashscreenState extends State<Splashscreen> {
                 fit: BoxFit.cover)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
       ),
     );
