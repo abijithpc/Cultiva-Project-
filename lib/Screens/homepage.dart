@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:cultiva/model/product.dart';
-import 'package:cultiva/model/sellinfo.dart';
 import 'package:cultiva/productPage/indoor.dart';
 import 'package:cultiva/productPage/outdoor.dart';
 import 'package:cultiva/widget/carousel2.dart';

@@ -58,11 +58,16 @@ class _ProductselledState extends State<Productselled> {
                           ),
                           SizedBox(
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: customernameCon,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
                                   border: OutlineInputBorder()),
+                              validator: (value) {
+                                return "Name Field Is Required";
+                              },
                             ),
                           ),
                           SizedBox(
@@ -74,11 +79,16 @@ class _ProductselledState extends State<Productselled> {
                           ),
                           SizedBox(
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: customerNumberCon,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
                                   border: OutlineInputBorder()),
+                              validator: (value) {
+                                return " PhoneNumber Field is required";
+                              },
                             ),
                           ),
                           SizedBox(
@@ -138,11 +148,16 @@ class _ProductselledState extends State<Productselled> {
                           ),
                           SizedBox(
                             child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               controller: QuantityController,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
                                   border: OutlineInputBorder()),
+                              validator: (value) {
+                                return "Quantity Field is Required";
+                              },
                             ),
                           ),
                           SizedBox(
