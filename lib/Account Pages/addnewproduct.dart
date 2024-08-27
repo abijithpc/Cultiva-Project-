@@ -8,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Addnewproduct extends StatefulWidget {
-  const Addnewproduct({super.key});
+  final List<String> categories;
+  const Addnewproduct({super.key, required this.categories});
 
   @override
   State<Addnewproduct> createState() => _AddnewproductState();
@@ -21,6 +22,14 @@ class _AddnewproductState extends State<Addnewproduct> {
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   File? _selectedProductImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _categories = widget.categories;
+  }
+
+  late List<String> _categories;
 
   Future<void> _pickImage() async {
     final pickedFile =
@@ -55,6 +64,7 @@ class _AddnewproductState extends State<Addnewproduct> {
         _selectCategory = null;
         _selectedProductImage = null;
       });
+      Navigator.pop(context);
     }
   }
 
@@ -143,10 +153,8 @@ class _AddnewproductState extends State<Addnewproduct> {
                                   textStyle: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              items: <String>[
-                                'Indoor',
-                                'Outdoor'
-                              ].map<DropdownMenuItem<String>>((String value) {
+                              items: _categories.map<DropdownMenuItem<String>>(
+                                  (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),

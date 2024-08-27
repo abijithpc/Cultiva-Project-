@@ -225,7 +225,8 @@ class _HomepageState extends State<Homepage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Categorylistpage(
-                                    categories: _getCategories())));
+                                    categories: _getCategories()
+                                      ..add(newCategory))));
                       }
                     },
                     icon: Icon(Icons.add),

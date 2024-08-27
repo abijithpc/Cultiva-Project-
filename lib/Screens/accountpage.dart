@@ -63,8 +63,10 @@ class _AccountpagesState extends State<Accountpages> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Addnewproduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Addnewproduct(categories: [])));
                 },
                 child: ListTile(
                   leading: FaIcon(FontAwesomeIcons.cartPlus),
