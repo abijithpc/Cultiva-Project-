@@ -14,7 +14,7 @@ class User extends HiveObject {
   String password;
 
   @HiveField(3)
-  int Phonenumber;
+  int phonenumber;
 
   @HiveField(4)
   String? profileImage;
@@ -23,6 +23,6 @@ class User extends HiveObject {
       {required this.username,
       required this.email,
       required this.password,
-      required this.Phonenumber,
+      required this.phonenumber,
       this.profileImage});
 }

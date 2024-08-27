@@ -1,10 +1,8 @@
 import 'package:cultiva/Screens/loginhomescreen.dart';
-import 'package:cultiva/Screens/mainpage.dart';
 import 'package:cultiva/Screens/signup.dart';
-import 'package:cultiva/model/model.dart';
+import 'package:cultiva/function/loginpage/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -19,8 +17,8 @@ class _LoginpageState extends State<Loginpage> {
   final TextEditingController passwordcntrlr = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -34,7 +32,7 @@ class _LoginpageState extends State<Loginpage> {
       ),
       resizeToAvoidBottomInset: true,
       body: Container(
-        height: Screenheigth,
+        height: screenheigth,
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
@@ -71,7 +69,7 @@ class _LoginpageState extends State<Loginpage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: ScreenWidth * 0.85,
+                          width: screenWidth * 0.85,
                           child: TextFormField(
                             controller: usernamecntrlr,
                             autovalidateMode:
@@ -90,10 +88,10 @@ class _LoginpageState extends State<Loginpage> {
                           ),
                         ),
                         SizedBox(
-                          height: Screenheigth * .03,
+                          height: screenheigth * .03,
                         ),
                         SizedBox(
-                          width: ScreenWidth * 0.85,
+                          width: screenWidth * 0.85,
                           child: TextFormField(
                             controller: passwordcntrlr,
                             autovalidateMode:
@@ -112,12 +110,13 @@ class _LoginpageState extends State<Loginpage> {
                           ),
                         ),
                         SizedBox(
-                          height: Screenheigth * .08,
+                          height: screenheigth * .08,
                         ),
                         ElevatedButton(
                           onPressed: () {
                             if (_globalKey.currentState!.validate()) {
-                              checklogin();
+                              checklogin(
+                                  context, usernamecntrlr, passwordcntrlr);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -172,44 +171,4 @@ class _LoginpageState extends State<Loginpage> {
       ),
     );
   }
-
-  Future<void> checklogin() async {
-    final userBox = Hive.box<User>('userBox');
-    final users = userBox.values;
-
-    final username = usernamecntrlr.text;
-    final passwords = passwordcntrlr.text;
-
-    bool founduser = false;
-
-    for (var user in users) {
-      if (user.username == username && user.password == passwords) {
-        founduser = true;
-
-        final authBox = await Hive.openBox('authBox');
-        await authBox.put(
-            'currentUserIndex', userBox.keys.toList().indexOf(user.key));
-
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const Mainpage(
-                      sellinfo: null,
-                      selectedProduct: null,
-                    )),
-            (route) => false);
-        break;
-      }
-    }
-    if (!founduser) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        backgroundColor: Colors.red,
-        content: Text(
-          "Incorrect Password or Username",
-          style: TextStyle(color: Colors.white),
-        ),
-      ));
-    }
-  }
-
 }

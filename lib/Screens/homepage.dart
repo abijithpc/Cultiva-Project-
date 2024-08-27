@@ -1,7 +1,9 @@
 import 'dart:io';
+
+import 'package:cultiva/function/addcategory.dart';
 import 'package:cultiva/model/product.dart';
-import 'package:cultiva/productPage/indoor.dart';
-import 'package:cultiva/productPage/outdoor.dart';
+import 'package:cultiva/productPage/categorylistpage.dart';
+import 'package:cultiva/productPage/productdetails.dart';
 import 'package:cultiva/widget/carousel2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +19,8 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController minpriceController = TextEditingController();
+  TextEditingController maxpriceController = TextEditingController();
   List<Product> allProducts = [];
   List<Product> filteredProducts = [];
   bool isSearching = false;
@@ -27,6 +31,13 @@ class _HomepageState extends State<Homepage> {
     loadProducts();
 
     searchController.addListener(() {
+      filterProducts();
+    });
+    minpriceController.addListener(() {
+      filterProducts();
+    });
+
+    maxpriceController.addListener(() {
       filterProducts();
     });
   }
@@ -41,15 +52,29 @@ class _HomepageState extends State<Homepage> {
 
   void filterProducts() {
     final query = searchController.text.toLowerCase();
+    final minPrice = double.tryParse(minpriceController.text) ?? 0;
+    final maxPrice = double.tryParse(maxpriceController.text) ?? 0;
 
     setState(() {
-      isSearching = query.isNotEmpty;
+      isSearching = query.isNotEmpty ||
+          minpriceController.text.isNotEmpty ||
+          maxpriceController.text.isNotEmpty;
       filteredProducts = allProducts.where((product) {
         final nameMatch =
             product.productname?.toLowerCase().contains(query) ?? false;
         final descriptionMatch =
             product.description?.toLowerCase().contains(query) ?? false;
-        return nameMatch || descriptionMatch;
+
+        //converting the price String to double
+        final double productPrice =
+            double.tryParse(product.price?.toString() ?? '') ?? 0.0;
+
+        //giving min and max value
+        final double minPrice = 10.0;
+        final double maxPrice = 100.0;
+
+        final priceMatch = productPrice >= minPrice && productPrice <= maxPrice;
+        return (nameMatch || descriptionMatch) && priceMatch;
       }).toList();
     });
   }
@@ -101,6 +126,34 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 9),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: TextFormField(
+                      controller: minpriceController,
+                      decoration: InputDecoration(
+                          labelText: 'Min Price',
+                          filled: true,
+                          fillColor: Colors.grey.withOpacity(0.3)),
+                      keyboardType: TextInputType.number,
+                    )),
+                    SizedBox(
+                      width: 18,
+                    ),
+                    Expanded(
+                        child: TextFormField(
+                      controller: maxpriceController,
+                      decoration: InputDecoration(
+                          labelText: 'Max Price',
+                          fillColor: Colors.grey.withOpacity(0.3),
+                          filled: true),
+                      keyboardType: TextInputType.number,
+                    ))
+                  ],
+                ),
+              ),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
@@ -128,77 +181,74 @@ class _HomepageState extends State<Homepage> {
                               fit: BoxFit.cover,
                             ),
                             title: Text(product.productname ?? 'No Name'),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Productdetails(product: product)));
+                            },
                           );
                         },
                       ),
               ] else ...[
+                SizedBox(
+                  height: 30,
+                ),
                 Text(
                   "Product Category",
                   style: GoogleFonts.judson(
                       textStyle:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color:
-                                    const Color.fromARGB(255, 228, 228, 228)),
-                            width: 100,
-                            height: 100,
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Outdoor()));
-                                },
-                                icon: Image.asset(
-                                  'Assets/park.png',
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          Text("Outdoor")
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color.fromARGB(
-                                        255, 229, 229, 229)),
-                                width: 100,
-                                height: 100,
-                                child: IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Indoor()));
-                                  },
-                                  icon: Image.asset(
-                                    'Assets/plant-pot.png',
-                                    fit: BoxFit.cover,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                              ),
-                              const Text("Indoor")
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
+                SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton.icon(
+                    onPressed: () async {
+                      final newCategory = await showaddCategoryDialog(context);
+                      if (newCategory != null && newCategory.isNotEmpty) {
+                        final newProduct = Product(
+                            producttype: newCategory,
+                            productname: 'Default Name',
+                            description: 'Default Description',
+                            price: '0',
+                            productimage: null);
+
+                        final ProductBox = Hive.box<Product>('productBox');
+                        ProductBox.add(newProduct);
+
+                        loadProducts();
+                        setState(() {});
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Categorylistpage(
+                                    categories: _getCategories())));
+                      }
+                    },
+                    icon: Icon(Icons.add),
+                    label: Text('Add category')),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: 250,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Categorylistpage(
+                                  categories: _getCategories())));
+                    },
+                    icon: Icon(Icons.category),
+                    label: Text('View Categories'),
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 GestureDetector(child: Carousel2()),
               ]
@@ -207,5 +257,13 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
     );
+  }
+
+  List<String> _getCategories() {
+    final categoris = allProducts
+        .map((product) => product.producttype ?? '')
+        .toSet()
+        .toList();
+    return categoris;
   }
 }

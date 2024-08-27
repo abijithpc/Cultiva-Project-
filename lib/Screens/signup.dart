@@ -23,8 +23,8 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -42,7 +42,7 @@ class _SignupState extends State<Signup> {
                 image: AssetImage(
                     'Assets/Backgroundimage/raihan-n-aziz-vXqYyGs3_Pc-unsplash.jpg'),
                 fit: BoxFit.cover)),
-        height: Screenheigth * 1,
+        height: screenheigth * 1,
         child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -71,7 +71,7 @@ class _SignupState extends State<Signup> {
                     height: 30,
                   ),
                   SizedBox(
-                    width: ScreenWidth * 0.85,
+                    width: screenWidth * 0.85,
                     child: TextFormField(
                       controller: nameController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -88,8 +88,8 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: ScreenWidth * 0.85,
+                  SizedBox(
+                    width: screenWidth * 0.85,
                     child: TextFormField(
                       controller: emailController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -112,8 +112,8 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: ScreenWidth * 0.85,
+                  SizedBox(
+                    width: screenWidth * 0.85,
                     child: TextFormField(
                       controller: numbercontroller,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -137,7 +137,7 @@ class _SignupState extends State<Signup> {
                     height: 20,
                   ),
                   Container(
-                    width: ScreenWidth * 0.85,
+                    width: screenWidth * 0.85,
                     child: TextFormField(
                       controller: passwordController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -192,7 +192,7 @@ class _SignupState extends State<Signup> {
       username: nameController.text,
       email: emailController.text,
       password: passwordController.text,
-      Phonenumber: int.tryParse(numbercontroller.text) ?? 0,
+      phonenumber: int.tryParse(numbercontroller.text) ?? 0,
     );
     await userBox.add(users);
 

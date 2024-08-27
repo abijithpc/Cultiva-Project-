@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:cultiva/Account%20Pages/editProfile.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
+import 'package:cultiva/function/profile/profile.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -25,11 +25,8 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> _fetchUser() async {
-    final authBox = await Hive.openBox('authBox');
-    final currentIndex = authBox.get('currentUserIndex', defaultValue: 0);
+    final user = await fetchDetails();
 
-    final box = Hive.box<User>('userBox');
-    final user = box.getAt(currentIndex);
     if (user != null) {
       setState(() {
         _user = user;
@@ -45,8 +42,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
@@ -75,8 +72,8 @@ class _ProfileState extends State<Profile> {
         children: [
           Container(
             color: Color.fromARGB(255, 174, 236, 177),
-            height: Screenheigth * .40,
-            width: ScreenWidth * 1,
+            height: screenheigth * .40,
+            width: screenWidth * 1,
             child: Column(
               children: [
                 SizedBox(
@@ -102,8 +99,12 @@ class _ProfileState extends State<Profile> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Editprofile(user: _user,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Editprofile(
+                                user: _user,
+                              )));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 202, 197, 51),
@@ -128,7 +129,7 @@ class _ProfileState extends State<Profile> {
                 height: 30,
               ),
               Text(
-                _user.Phonenumber.toString(),
+                _user.phonenumber.toString(),
                 style: GoogleFonts.judson(
                     textStyle: TextStyle(
                         color: const Color.fromARGB(255, 11, 11, 11),

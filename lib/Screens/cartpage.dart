@@ -95,15 +95,14 @@ class _CartpageState extends State<Cartpage> {
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Text(
-                                        product.producttype ??
-                                            'productCategory',
+                                        product.producttype,
                                         style: GoogleFonts.judson(
                                             textStyle: TextStyle(
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                       Text(
-                                        "₹${product.price}" ?? 'productPrice',
+                                        "₹${product.price}",
                                         style: GoogleFonts.judson(
                                             textStyle: TextStyle(
                                                 fontSize: 25,

@@ -1,3 +1,4 @@
+import 'package:cultiva/function/savedetails/savedetails.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
@@ -25,21 +26,21 @@ class _ProductselledState extends State<Productselled> {
 
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
             "Product Selled",
             style: GoogleFonts.judson(
                 textStyle:
-                    TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           ),
           centerTitle: true,
         ),
-        body: Container(
-          width: ScreenWidth,
-          height: Screenheigth,
+        body: SizedBox(
+          width: screenWidth,
+          height: screenheigth,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
@@ -47,12 +48,12 @@ class _ProductselledState extends State<Productselled> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       Column(
                         children: [
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [Text("Full Name")],
                           ),
@@ -64,16 +65,19 @@ class _ProductselledState extends State<Productselled> {
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
-                                  border: OutlineInputBorder()),
+                                  border: const OutlineInputBorder()),
                               validator: (value) {
-                                return "Name Field Is Required";
+                                if (value == null || value.isEmpty) {
+                                  return "Name Field Is Required";
+                                }
+                                return null;
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 9,
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [Text("Phone Number")],
                           ),
@@ -85,16 +89,19 @@ class _ProductselledState extends State<Productselled> {
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
-                                  border: OutlineInputBorder()),
+                                  border: const OutlineInputBorder()),
                               validator: (value) {
-                                return " PhoneNumber Field is required";
+                                if (value == null || value.isEmpty) {
+                                  return "PhoneNumber Field is Required";
+                                }
+                                return null;
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 9,
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text("Select Product"),
@@ -111,7 +118,7 @@ class _ProductselledState extends State<Productselled> {
                                   decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.white.withOpacity(0.3),
-                                      border: OutlineInputBorder()),
+                                      border: const OutlineInputBorder()),
                                   items: products.map((product) {
                                     return DropdownMenuItem(
                                       value: product.productname,
@@ -139,7 +146,7 @@ class _ProductselledState extends State<Productselled> {
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 9,
                           ),
                           Row(
@@ -156,7 +163,10 @@ class _ProductselledState extends State<Productselled> {
                                   fillColor: Colors.white.withOpacity(0.3),
                                   border: OutlineInputBorder()),
                               validator: (value) {
-                                return "Quantity Field is Required";
+                                if (value == null || value.isEmpty) {
+                                  return "PhoneNumber Field is Required";
+                                }
+                                return null;
                               },
                             ),
                           ),
@@ -164,8 +174,20 @@ class _ProductselledState extends State<Productselled> {
                             height: 10,
                           ),
                           ElevatedButton(
-                            onPressed: () {
-                              saveDetails();
+                            onPressed: () async {
+                              final box =
+                                  await Hive.openBox<Sellinfo>('sellBox');
+                              if (_formKey.currentState!.validate()) {
+                                await saveDetails(
+                                    customerName: customernameCon.text,
+                                    customerNumber: customerNumberCon.text,
+                                    product: selectedProduct!,
+                                    quantity:
+                                        int.parse(QuantityController.text),
+                                    sellBox: box);
+
+                                Navigator.pop(context);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
@@ -187,25 +209,5 @@ class _ProductselledState extends State<Productselled> {
             ),
           ),
         ));
-  }
-
-  void saveDetails() async {
-    if (_formKey.currentState!.validate()) {
-      final sellinfo = Sellinfo(
-        customerName: customernameCon.text,
-        customerNumber: customerNumberCon.text,
-        product: selectedProduct!,
-        quantity: int.parse(
-          QuantityController.text,
-        ),
-      );
-
-      final box = await Hive.openBox<Sellinfo>('sellBox');
-      await box.add(sellinfo);
-
-      print(box);
-
-      Navigator.pop(context);
-    }
   }
 }

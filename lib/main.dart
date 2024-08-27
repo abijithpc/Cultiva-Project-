@@ -19,7 +19,7 @@ Future<void> main() async {
 
   //Product Adaptor
   Hive.registerAdapter(ProductAdapter());
-  await Hive.openBox<Product>('ProductBox');
+  await Hive.openBox<Product>('productBox');
 
   //sell details
   Hive.registerAdapter(SellinfoAdapter());

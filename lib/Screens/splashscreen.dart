@@ -10,12 +10,12 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    // double ScreenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         // width: ScreenWidth * 1,
-        height: Screenheigth,
+        height: screenheigth,
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: NetworkImage(

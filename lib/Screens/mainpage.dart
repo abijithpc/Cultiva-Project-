@@ -25,7 +25,7 @@ class _MainpageState extends State<Mainpage> {
     });
   }
 
-  List _pages = [Homepage(), Cartpage(), Accountpages()];
+  final List _pages = [Homepage(), Cartpage(), Accountpages()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

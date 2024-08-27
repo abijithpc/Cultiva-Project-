@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:cultiva/function/saveprofile/saveprofile.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Editprofile extends StatefulWidget {
@@ -28,7 +28,7 @@ class _EditprofileState extends State<Editprofile> {
 
     editusername = TextEditingController(text: widget.user.username);
     editphonenumber =
-        TextEditingController(text: widget.user.Phonenumber.toString());
+        TextEditingController(text: widget.user.phonenumber.toString());
     editemail = TextEditingController(text: widget.user.email);
     editpassword = TextEditingController(text: widget.user.password);
     if (widget.user.profileImage != null) {
@@ -47,28 +47,10 @@ class _EditprofileState extends State<Editprofile> {
     }
   }
 
-  void saveProfile() async {
-    final box = await Hive.openBox<User>('UserBox');
-    final index = box.values.toList().indexOf(widget.user);
-
-    if (index != -1) {
-      User updatedUser = widget.user
-        ..username = editusername.text
-        ..Phonenumber = int.tryParse(editphonenumber.text) ?? 0
-        ..email = editemail.text
-        ..password = editpassword.text
-        ..profileImage = _image?.path;
-
-      await box.putAt(index, updatedUser);
-
-      Navigator.pop(context);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -77,9 +59,9 @@ class _EditprofileState extends State<Editprofile> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        width: ScreenWidth,
-        height: Screenheigth,
+      body: SizedBox(
+        width: screenWidth,
+        height: screenheigth,
         child: Padding(
           padding: const EdgeInsets.all(13.0),
           child: Form(
@@ -102,12 +84,12 @@ class _EditprofileState extends State<Editprofile> {
                           : null,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -122,7 +104,7 @@ class _EditprofileState extends State<Editprofile> {
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
-                              border: OutlineInputBorder()),
+                              border: const OutlineInputBorder()),
                           validator: (value) => value == null || value.isEmpty
                               ? "Password Field is Required"
                               : null,
@@ -131,11 +113,11 @@ class _EditprofileState extends State<Editprofile> {
                     ],
                   ),
                   SizedBox(
-                    height: Screenheigth * .02,
+                    height: screenheigth * .02,
                   ),
                   Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -151,7 +133,7 @@ class _EditprofileState extends State<Editprofile> {
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
-                              border: OutlineInputBorder()),
+                              border: const OutlineInputBorder()),
                           validator: (value) => value == null || value.isEmpty
                               ? "Phonenumber Field is Required"
                               : null,
@@ -160,11 +142,11 @@ class _EditprofileState extends State<Editprofile> {
                     ],
                   ),
                   SizedBox(
-                    height: Screenheigth * .02,
+                    height: screenheigth * .02,
                   ),
                   Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -189,11 +171,11 @@ class _EditprofileState extends State<Editprofile> {
                     ],
                   ),
                   SizedBox(
-                    height: Screenheigth * .02,
+                    height: screenheigth * .02,
                   ),
                   Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -209,7 +191,7 @@ class _EditprofileState extends State<Editprofile> {
                           decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
-                              border: OutlineInputBorder()),
+                              border: const OutlineInputBorder()),
                           validator: (value) => value == null || value.isEmpty
                               ? "Password Field is Required"
                               : null,
@@ -218,11 +200,12 @@ class _EditprofileState extends State<Editprofile> {
                     ],
                   ),
                   SizedBox(
-                    height: Screenheigth * .02,
+                    height: screenheigth * .02,
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      saveProfile();
+                      saveProfile(widget.user, editusername, editphonenumber,
+                          editemail, editpassword, _image, context);
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 23, 65, 24),
@@ -232,8 +215,8 @@ class _EditprofileState extends State<Editprofile> {
                     child: Text(
                       "Save",
                       style: GoogleFonts.judson(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 24)),
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 24)),
                     ),
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cultiva/Account%20Pages/editproduct.dart';
+import 'package:cultiva/function/productpage/editanddelete.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/productdetails.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +56,9 @@ class _IndoorState extends State<Indoor> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Productdetails(product: product,),
+                        builder: (context) => Productdetails(
+                          product: product,
+                        ),
                       ),
                     );
                   },
@@ -105,6 +109,51 @@ class _IndoorState extends State<Indoor> {
                               )),
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Editproduct(product: product)));
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                )),
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Delete Product"),
+                                          content: Text(
+                                              "Are you sure you want to delete this product "),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Cancel")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  deleteProduct(product);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Yes"))
+                                          ],
+                                        ));
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            )
+                          ],
                         )
                       ],
                     ),

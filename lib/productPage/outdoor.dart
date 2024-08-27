@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cultiva/Account%20Pages/editproduct.dart';
+import 'package:cultiva/function/productpage/editanddelete.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/productdetails.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class Outdoor extends StatefulWidget {
 class _OutdoorState extends State<Outdoor> {
   @override
   Widget build(BuildContext context) {
-    final Box<Product> ProductBox = Hive.box<Product>('productBox');
+    final Box<Product> productBox = Hive.box<Product>('productBox');
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -28,7 +30,7 @@ class _OutdoorState extends State<Outdoor> {
           centerTitle: true,
         ),
         body: ValueListenableBuilder(
-          valueListenable: ProductBox.listenable(),
+          valueListenable: productBox.listenable(),
           builder: (context, Box<Product> box, _) {
             final outdoorPlants = box.values
                 .where((product) => product.producttype == 'Outdoor')
@@ -54,7 +56,9 @@ class _OutdoorState extends State<Outdoor> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Productdetails(product: product,)));
+                            builder: (context) => Productdetails(
+                                  product: product,
+                                )));
                   },
                   child: Card(
                     child: Column(
@@ -103,6 +107,51 @@ class _OutdoorState extends State<Outdoor> {
                               )),
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Editproduct(product: product)));
+                                },
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.blue,
+                                )),
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                          title: Text("Delete Product"),
+                                          content: Text(
+                                              "Are you sure you want to delete this product "),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Cancel")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  deleteProduct(product);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Yes"))
+                                          ],
+                                        ));
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            )
+                          ],
                         )
                       ],
                     ),

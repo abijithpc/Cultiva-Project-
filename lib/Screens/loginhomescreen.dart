@@ -15,8 +15,8 @@ class Loginhomescreen extends StatefulWidget {
 class _LoginscreenState extends State<Loginhomescreen> {
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SafeArea(
@@ -46,8 +46,8 @@ class _LoginscreenState extends State<Loginhomescreen> {
               // ),
               Container(
                 padding: const EdgeInsets.all(45),
-                width: ScreenWidth,
-                height: Screenheigth * 0.49,
+                width: screenWidth,
+                height: screenheigth * 0.49,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
                   gradient: LinearGradient(

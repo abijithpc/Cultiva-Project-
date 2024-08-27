@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
-import 'package:cultiva/model/product.dart';
+import 'package:cultiva/function/addproduct/addproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Addnewproduct extends StatefulWidget {
@@ -16,9 +17,9 @@ class Addnewproduct extends StatefulWidget {
 class _AddnewproductState extends State<Addnewproduct> {
   String? _selectCategory;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController ProductNameController = TextEditingController();
-  TextEditingController PriceController = TextEditingController();
-  TextEditingController DescriptionController = TextEditingController();
+  TextEditingController productController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   File? _selectedProductImage;
 
   Future<void> _pickImage() async {
@@ -32,30 +33,24 @@ class _AddnewproductState extends State<Addnewproduct> {
     }
   }
 
-  Future<void> _addproduct() async {
+  void _addproduct() async {
     if (_formKey.currentState!.validate()) {
-      final ProductName = ProductNameController.text;
-      final Price = PriceController.text;
-      final Description = DescriptionController.text;
+      final productName = productController.text;
+      final price = priceController.text;
+      final description = descriptionController.text;
+      final productType = _selectCategory!;
 
-      final prduct = Product(
-          productname: ProductName,
-          description: Description,
-          price: Price,
-          productimage: _selectedProductImage != null
-              ? _selectedProductImage!.path
-              : null,
-          producttype: _selectCategory!);
+      await Addproduct().addProduct(
+          context: context,
+          productName: productName,
+          price: price,
+          description: description,
+          productType: productType,
+          productImage: _selectedProductImage);
 
-      var box = Hive.box<Product>('productBox');
-      await box.add(prduct);
-
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Product Addedd Successfully')));
-
-      ProductNameController.clear();
-      PriceController.clear();
-      DescriptionController.clear();
+      productController.clear();
+      priceController.clear();
+      descriptionController.clear();
       setState(() {
         _selectCategory = null;
         _selectedProductImage = null;
@@ -65,29 +60,29 @@ class _AddnewproductState extends State<Addnewproduct> {
 
   @override
   Widget build(BuildContext context) {
-    double ScreenWidth = MediaQuery.of(context).size.width;
-    double Screenheigth = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
             "Add New Product",
             style: GoogleFonts.judson(
-              textStyle: TextStyle(fontSize: 25),
+              textStyle: const TextStyle(fontSize: 25),
             ),
           ),
           centerTitle: true,
         ),
         body: Scaffold(
           body: SizedBox(
-            height: Screenheigth * 1,
-            width: ScreenWidth,
+            height: screenheigth * 1,
+            width: screenwidth,
             child: SafeArea(
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       GestureDetector(
@@ -96,17 +91,17 @@ class _AddnewproductState extends State<Addnewproduct> {
                             child: _selectedProductImage != null
                                 ? Image.file(
                                     _selectedProductImage!,
-                                    width: ScreenWidth,
-                                    height: Screenheigth * 0.2,
+                                    width: screenwidth,
+                                    height: screenheigth * 0.2,
                                   )
                                 : Image.asset(
                                     'Assets/profile.png',
-                                    width: ScreenWidth,
-                                    height: Screenheigth * 0.2,
+                                    width: screenwidth,
+                                    height: screenheigth * 0.2,
                                     fit: BoxFit.cover,
                                   )),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       Padding(
@@ -115,7 +110,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                           children: [
                             const SizedBox(height: 10),
                             TextFormField(
-                              controller: ProductNameController,
+                              controller: productController,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
@@ -168,7 +163,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               keyboardType: TextInputType.number,
-                              controller: PriceController,
+                              controller: priceController,
                               decoration: InputDecoration(
                                 hintText: "Price",
                                 hintStyle: GoogleFonts.judson(
@@ -187,7 +182,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                             ),
                             const SizedBox(height: 10),
                             TextFormField(
-                              controller: DescriptionController,
+                              controller: descriptionController,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               maxLines: 2,
