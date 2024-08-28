@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cultiva/function/addcategory.dart';
+import 'package:cultiva/function/categoryfunction/addcategory.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/categorylistpage.dart';
 import 'package:cultiva/productPage/productdetails.dart';

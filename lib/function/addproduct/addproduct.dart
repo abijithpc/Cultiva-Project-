@@ -13,6 +13,8 @@ class Addproduct {
     required String productType,
     File? productImage,
   }) async {
+    var box = Hive.box<Product>('productBox');
+
     final product = Product(
       productname: productName,
       description: description,
@@ -21,7 +23,6 @@ class Addproduct {
       producttype: productType,
     );
 
-    var box = Hive.box<Product>('productBox');
     await box.add(product);
 
     ScaffoldMessenger.of(context)

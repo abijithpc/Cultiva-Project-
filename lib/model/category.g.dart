@@ -8,7 +8,7 @@ part of 'category.dart';
 
 class CategoryAdapter extends TypeAdapter<Category> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
   Category read(BinaryReader reader) {
@@ -18,18 +18,15 @@ class CategoryAdapter extends TypeAdapter<Category> {
     };
     return Category(
       name: fields[0] as String?,
-      iconpath: fields[1] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Category obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.iconpath);
+      ..writeByte(0)
+      ..write(obj.name);
   }
 
   @override

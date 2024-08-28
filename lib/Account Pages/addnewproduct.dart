@@ -3,8 +3,10 @@
 import 'dart:io';
 
 import 'package:cultiva/function/addproduct/addproduct.dart';
+import 'package:cultiva/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Addnewproduct extends StatefulWidget {
@@ -17,19 +19,41 @@ class Addnewproduct extends StatefulWidget {
 
 class _AddnewproductState extends State<Addnewproduct> {
   String? _selectCategory;
+  List<String> _categories = [];
   final _formKey = GlobalKey<FormState>();
   TextEditingController productController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   File? _selectedProductImage;
+  List<Product> allProducts = [];
 
   @override
   void initState() {
     super.initState();
-    _categories = widget.categories;
+
+    void loadProducts() {
+      final productBox = Hive.box<Product>('productBox');
+      setState(() {
+        allProducts = productBox.values.toList();
+        _categories =
+            _getCategories(); // Populate categories after loading products
+        _selectCategory = _categories.isNotEmpty
+            ? _categories[0]
+            : null; // Set default value if necessary
+      });
+    }
+
+    loadProducts(); // Load products and then populate categories
   }
 
-  late List<String> _categories;
+  List<String> _getCategories() {
+    final categories = allProducts
+        .map((product) => product.producttype ?? '')
+        .where((type) => type.isNotEmpty) // Exclude empty strings
+        .toSet()
+        .toList();
+    return categories;
+  }
 
   Future<void> _pickImage() async {
     final pickedFile =

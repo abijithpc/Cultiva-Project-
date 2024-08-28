@@ -1,6 +1,7 @@
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/Screens/mainpage.dart';
 import 'package:cultiva/model/cartdata.dart';
+import 'package:cultiva/model/category.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
@@ -28,6 +29,9 @@ Future<void> main() async {
   // cartdata
   Hive.registerAdapter(CartdataAdapter());
   await Hive.openBox<Cartdata>('cartBox');
+
+  Hive.registerAdapter(CategoryAdapter());
+  await Hive.openBox<Category>('categoryBox');
 
   final authBox = await Hive.openBox('authBox');
 
