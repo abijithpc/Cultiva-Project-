@@ -238,7 +238,6 @@ class _AddnewproductState extends State<Addnewproduct> {
                             ElevatedButton(
                               onPressed: () {
                                 _addproduct();
-                                Navigator.pop(context);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
