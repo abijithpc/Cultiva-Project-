@@ -14,7 +14,6 @@ class Plantlistpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final productBox = Hive.box<Product>('productBox');
 
     return Scaffold(
         appBar: AppBar(

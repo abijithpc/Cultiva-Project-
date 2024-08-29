@@ -52,29 +52,20 @@ class _HomepageState extends State<Homepage> {
 
   void filterProducts() {
     final query = searchController.text.toLowerCase();
-    final minPrice = double.tryParse(minpriceController.text) ?? 0;
-    final maxPrice = double.tryParse(maxpriceController.text) ?? 0;
 
     setState(() {
-      isSearching = query.isNotEmpty ||
-          minpriceController.text.isNotEmpty ||
-          maxpriceController.text.isNotEmpty;
+      isSearching = query.isNotEmpty;
       filteredProducts = allProducts.where((product) {
         final nameMatch =
             product.productname?.toLowerCase().contains(query) ?? false;
         final descriptionMatch =
             product.description?.toLowerCase().contains(query) ?? false;
 
-        //converting the price String to double
-        final double productPrice =
-            double.tryParse(product.price?.toString() ?? '') ?? 0.0;
+        // //converting the price String to double
+        // final double productPrice =
+        //     double.tryParse(product.price?.toString() ?? '') ?? 0.0;
 
-        //giving min and max value
-        final double minPrice = 10.0;
-        final double maxPrice = 100.0;
-
-        final priceMatch = productPrice >= minPrice && productPrice <= maxPrice;
-        return (nameMatch || descriptionMatch) && priceMatch;
+        return (nameMatch || descriptionMatch);
       }).toList();
     });
   }
@@ -174,12 +165,22 @@ class _HomepageState extends State<Homepage> {
                         itemBuilder: (context, index) {
                           final product = filteredProducts[index];
                           return ListTile(
-                            leading: Image.file(
-                              width: 60,
-                              height: 120,
-                              File(product.productimage!),
-                              fit: BoxFit.cover,
-                            ),
+                            leading: product.productimage != null
+                                ? Image.file(
+                                    width: 60,
+                                    height: 120,
+                                    File(product.productimage!),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Container(
+                                    width: 60,
+                                    height: 120,
+                                    color: Colors.grey,
+                                    child: Icon(
+                                      Icons.image,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                             title: Text(product.productname ?? 'No Name'),
                             onTap: () {
                               Navigator.push(

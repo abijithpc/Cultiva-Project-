@@ -2,6 +2,7 @@
 
 import 'package:cultiva/Screens/loginPage.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
+import 'package:cultiva/function/signup.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -158,14 +159,13 @@ class _SignupState extends State<Signup> {
                     onPressed: () {
                       //dismiss the keyboard
                       FocusScope.of(context).unfocus();
-
-                      if (_formKey.currentState!.validate()) {
-                        saveData();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Loginpage()));
-                      }
+                      SignupHelper().saveData(
+                          context,
+                          nameController,
+                          emailController,
+                          passwordController,
+                          numbercontroller,
+                          _formKey);
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 23, 65, 24),
@@ -184,24 +184,5 @@ class _SignupState extends State<Signup> {
             )),
       ),
     );
-  }
-
-  Future<void> saveData() async {
-    final userBox = Hive.box<User>("userBox");
-    final users = User(
-      username: nameController.text,
-      email: emailController.text,
-      password: passwordController.text,
-      phonenumber: int.tryParse(numbercontroller.text) ?? 0,
-    );
-    await userBox.add(users);
-
-    final authBox = await Hive.openBox('authBox');
-    await authBox.put('isLoggedIn', true);
-
-    nameController.clear();
-    emailController.clear();
-    passwordController.clear();
-    numbercontroller.clear();
   }
 }
