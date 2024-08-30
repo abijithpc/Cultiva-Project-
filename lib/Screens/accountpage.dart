@@ -105,19 +105,6 @@ class _AccountpagesState extends State<Accountpages> {
                 ),
               ),
               GestureDetector(
-                // onTap: Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => Editproduct())),
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.penToSquare),
-                  title: Text(
-                    "Edit Product",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ),
-              GestureDetector(
                 onTap: () async {
                   Navigator.pushReplacement(
                       context,

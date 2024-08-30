@@ -1,13 +1,16 @@
-import 'package:cultiva/model/model.dart';
 import 'package:cultiva/Screens/loginPage.dart';
+import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SignupHelper {
-  Future<void> saveData(BuildContext context, TextEditingController nameController,
-      TextEditingController emailController, TextEditingController passwordController,
-      TextEditingController numbercontroller, GlobalKey<FormState> formKey) async {
-    
+  Future<void> saveData(
+      BuildContext context,
+      TextEditingController nameController,
+      TextEditingController emailController,
+      TextEditingController passwordController,
+      TextEditingController numbercontroller,
+      GlobalKey<FormState> formKey) async {
     if (formKey.currentState!.validate()) {
       final userBox = Hive.box<User>("userBox");
       final users = User(
