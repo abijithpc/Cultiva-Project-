@@ -1,3 +1,4 @@
+import 'package:cultiva/model/product.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'sellinfo.g.dart';

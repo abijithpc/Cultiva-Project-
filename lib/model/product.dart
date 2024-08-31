@@ -20,9 +20,9 @@ class Product extends HiveObject {
   String producttype;
 
   Product(
-      {this.productname,
-      this.description,
-      this.price,
-      this.productimage,
+      {required this.productname,
+      required this.description,
+      required this.price,
+      required this.productimage,
       required this.producttype});
 }

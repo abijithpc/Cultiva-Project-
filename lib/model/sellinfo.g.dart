@@ -21,7 +21,7 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       customerNumber: fields[1] as String?,
       product: fields[2] as String?,
       quantity: fields[3] as int?,
-      totalPrice: fields[5] as int?,
+      totalPrice: fields[5] as num?,
       date: fields[4] as DateTime?,
     );
   }

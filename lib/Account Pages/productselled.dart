@@ -297,19 +297,21 @@ class _ProductselledState extends State<Productselled> {
               ),
               actions: [
                 TextButton(
-                    onPressed: () async {
-                      final box = await Hive.openBox<Sellinfo>('sellBox');
-                      for (var product in selectedProducts) {
-                        await saveDetails(
-                            customerName: customernameCon.text,
-                            customerNumber: customerNumberCon.text,
-                            product: product['product'].productName!,
-                            quantity: product['quantity'],
-                            totalPrice: totalPrice as int,
-                            sellBox: box);
-                      }
-                    },
-                    child: Text("Save")),
+                  onPressed: () async {
+                    final box = await Hive.openBox<Sellinfo>('sellBox');
+                    for (var product in selectedProducts) {
+                      await saveDetails(
+                          customerName: customernameCon.text,
+                          customerNumber: customerNumberCon.text,
+                          product: product['product'].productName!,
+                          quantity: product['quantity'],
+                          totalPrice: totalPrice as int,
+                          sellBox: box);
+                    }
+                    Navigator.pop(context);
+                  },
+                  child: Text("Save & View details"),
+                ),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text('Close'),
