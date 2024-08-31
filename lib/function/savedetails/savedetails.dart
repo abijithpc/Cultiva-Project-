@@ -6,12 +6,15 @@ Future<void> saveDetails({
   required String customerNumber,
   required String product,
   required int quantity,
+  required num totalPrice,
   required Box<Sellinfo> sellBox,
 }) async {
   final sellinfo = Sellinfo(
-      customerName: customerName,
-      customerNumber: customerNumber,
-      product: product,
-      quantity: quantity);
+    customerName: customerName,
+    customerNumber: customerNumber,
+    product: product,
+    quantity: quantity,
+    totalPrice: totalPrice,
+  );
   await sellBox.add(sellinfo);
 }

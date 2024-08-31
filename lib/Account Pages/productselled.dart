@@ -167,6 +167,15 @@ class _ProductselledState extends State<Productselled> {
                                 customerNumber: customerNumberCon.text,
                                 product: product['product'].productname!,
                                 quantity: product['quantity'],
+                                totalPrice: selectedProducts.fold(
+                                  0,
+                                  (sum, item) {
+                                    final product = item['product'];
+                                    final quantity = item['quantity'];
+                                    return sum +
+                                        (int.parse(product.price!) * quantity);
+                                  },
+                                ),
                                 sellBox: box,
                               );
                             }
@@ -287,6 +296,20 @@ class _ProductselledState extends State<Productselled> {
                 ),
               ),
               actions: [
+                TextButton(
+                    onPressed: () async {
+                      final box = await Hive.openBox<Sellinfo>('sellBox');
+                      for (var product in selectedProducts) {
+                        await saveDetails(
+                            customerName: customernameCon.text,
+                            customerNumber: customerNumberCon.text,
+                            product: product['product'].productName!,
+                            quantity: product['quantity'],
+                            totalPrice: totalPrice as int,
+                            sellBox: box);
+                      }
+                    },
+                    child: Text("Save")),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text('Close'),

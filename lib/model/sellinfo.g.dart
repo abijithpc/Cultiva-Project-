@@ -21,6 +21,7 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       customerNumber: fields[1] as String?,
       product: fields[2] as String?,
       quantity: fields[3] as int?,
+      totalPrice: fields[5] as int?,
       date: fields[4] as DateTime?,
     );
   }
@@ -28,7 +29,7 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
   @override
   void write(BinaryWriter writer, Sellinfo obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.customerName)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       ..writeByte(3)
       ..write(obj.quantity)
       ..writeByte(4)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(5)
+      ..write(obj.totalPrice);
   }
 
   @override

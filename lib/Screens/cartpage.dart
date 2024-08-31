@@ -22,6 +22,12 @@ class _CartpageState extends State<Cartpage> {
   late Box<Sellinfo> sellInfoBox;
   late Box<Product> productBox;
 
+  void deleteSellInfo(int index) {
+    setState(() {
+      sellInfoBox.deleteAt(index);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -68,8 +74,8 @@ class _CartpageState extends State<Cartpage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Purchasedetailspage(
-                              selectedProducts: purchasedProduct,
-                              sellinfo: sellInfo)));
+                                sellinfo: sellInfo,
+                              )));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -78,7 +84,7 @@ class _CartpageState extends State<Cartpage> {
                         color: const Color.fromARGB(255, 226, 226, 226),
                         borderRadius: BorderRadius.circular(10)),
                     width: 500,
-                    height: 290,
+                    height: 297,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -152,10 +158,38 @@ class _CartpageState extends State<Cartpage> {
                                     style: GoogleFonts.judson(
                                         textStyle: TextStyle(fontSize: 18)),
                                   ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                title: Text("Delete Product"),
+                                                content: Text(
+                                                    "Are you sure you want to delete this product?"),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text("Cancel")),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        deleteSellInfo(index);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text("Yes"))
+                                                ],
+                                              ));
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  )
                                 ],
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),

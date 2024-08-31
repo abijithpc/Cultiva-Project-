@@ -19,10 +19,14 @@ class Sellinfo extends HiveObject {
   @HiveField(4)
   DateTime? date;
 
+  @HiveField(5)
+  num? totalPrice;
+
   Sellinfo(
       {required this.customerName,
       required this.customerNumber,
       required this.product,
       required this.quantity,
+      required this.totalPrice,
       this.date});
 }
