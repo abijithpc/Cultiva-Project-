@@ -11,6 +11,7 @@ class Categorylistpage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Categories'),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: categories.length,

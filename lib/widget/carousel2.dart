@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class Carousel2 extends StatelessWidget {
+  const Carousel2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,7 +47,7 @@ class Carousel2 extends StatelessWidget {
                               color: Colors.black.withOpacity(0.5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text("Indoor Plants",
                                       style: TextStyle(
                                         color: Colors.white,

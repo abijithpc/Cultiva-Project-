@@ -52,20 +52,24 @@ class _HomepageState extends State<Homepage> {
 
   void filterProducts() {
     final query = searchController.text.toLowerCase();
+    final minPrice = double.tryParse(minpriceController.text) ?? 0.0;
+    final maxPrice =
+        double.tryParse(maxpriceController.text) ?? double.infinity;
 
     setState(() {
-      isSearching = query.isNotEmpty;
+      isSearching = query.isNotEmpty ||
+          minpriceController.text.isNotEmpty ||
+          maxpriceController.text.isNotEmpty;
       filteredProducts = allProducts.where((product) {
         final nameMatch =
             product.productname?.toLowerCase().contains(query) ?? false;
         final descriptionMatch =
             product.description?.toLowerCase().contains(query) ?? false;
 
-        // //converting the price String to double
-        // final double productPrice =
-        //     double.tryParse(product.price?.toString() ?? '') ?? 0.0;
+        final double productPrice = double.tryParse(product.price ?? '') ?? 0.0;
+        final pricMatch = productPrice >= minPrice && productPrice <= maxPrice;
 
-        return (nameMatch || descriptionMatch);
+        return (nameMatch || descriptionMatch && pricMatch);
       }).toList();
     });
   }
@@ -216,8 +220,8 @@ class _HomepageState extends State<Homepage> {
                             price: '0',
                             productimage: null);
 
-                        final ProductBox = Hive.box<Product>('productBox');
-                        ProductBox.add(newProduct);
+                        final productBox = Hive.box<Product>('productBox');
+                        productBox.add(newProduct);
 
                         loadProducts();
                         setState(() {});

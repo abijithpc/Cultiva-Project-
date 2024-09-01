@@ -52,6 +52,26 @@ class Productdetails extends StatelessWidget {
                 product.description ?? "No description available",
                 style: GoogleFonts.judson(textStyle: TextStyle(fontSize: 18)),
               ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+              width: 280,
+              height: 70,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 22, 95, 24),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                  child: Text(
+                "Price: ${product.price!}",
+                style: GoogleFonts.judson(
+                    textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold)),
+              )),
             )
           ],
         ),

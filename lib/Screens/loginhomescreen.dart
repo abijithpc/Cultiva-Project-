@@ -40,7 +40,7 @@ class _LoginscreenState extends State<Loginhomescreen> {
                 ],
               ),
               const SizedBox(height: 30),
-              CarouselItems(), // Assuming this widget is correctly constrained
+              CarouselItems(), 
               // const SizedBox(
               //   height: 20,
               // ),
