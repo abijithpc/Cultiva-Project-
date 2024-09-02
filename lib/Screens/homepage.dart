@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cultiva/function/categoryfunction/addcategory.dart';
+import 'package:cultiva/function/getCategory/getcategory.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/categorylistpage.dart';
 import 'package:cultiva/productPage/productdetails.dart';
@@ -82,27 +83,32 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.of(context).size.width;
+    final categoryProvider = CategoryProvider();
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 30),
-          child: GradientText(
-            'Greening up my spaces',
-            style: GoogleFonts.judson(
-                textStyle: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
-            )),
-            colors: [Colors.green, Color.fromARGB(255, 199, 194, 194)],
-          ),
-        ),
-      ),
-      body: SizedBox(
+      body: Container(
+        height: screenHeight * 1,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                    'Assets/Backgroundimage/plant-phone-cfbq4km7t75tc4wi.jpg'),
+                fit: BoxFit.cover)),
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: GradientText(
+                  'Greening up my spaces',
+                  style: GoogleFonts.judson(
+                      textStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  )),
+                  colors: [Colors.green, Color.fromARGB(255, 199, 194, 194)],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SizedBox(
@@ -113,11 +119,13 @@ class _HomepageState extends State<Homepage> {
                     },
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
-                        // border: OutlineInputBorder(
-                        //     borderRadius: BorderRadius.circular(12)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12)),
                         hintText: 'Search Plant',
+                        hintStyle: TextStyle(color: Colors.white),
                         filled: true,
-                        fillColor: Colors.grey.withOpacity(0.3)),
+                        fillColor: const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.3)),
                   ),
                 ),
               ),
@@ -129,9 +137,13 @@ class _HomepageState extends State<Homepage> {
                         child: TextFormField(
                       controller: minpriceController,
                       decoration: InputDecoration(
-                          labelText: 'Min Price',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          hintText: 'Min Price',
+                          hintStyle: TextStyle(color: Colors.white),
                           filled: true,
-                          fillColor: Colors.grey.withOpacity(0.3)),
+                          fillColor: const Color.fromARGB(255, 255, 253, 253)
+                              .withOpacity(0.3)),
                       keyboardType: TextInputType.number,
                     )),
                     SizedBox(
@@ -141,8 +153,12 @@ class _HomepageState extends State<Homepage> {
                         child: TextFormField(
                       controller: maxpriceController,
                       decoration: InputDecoration(
-                          labelText: 'Max Price',
-                          fillColor: Colors.grey.withOpacity(0.3),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          hintText: 'Max Price',
+                          hintStyle: TextStyle(color: Colors.white),
+                          fillColor: const Color.fromARGB(255, 255, 254, 254)
+                              .withOpacity(0.3),
                           filled: true),
                       keyboardType: TextInputType.number,
                     ))
@@ -159,7 +175,7 @@ class _HomepageState extends State<Homepage> {
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
                           'No products found',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       )
                     : ListView.builder(
@@ -168,31 +184,36 @@ class _HomepageState extends State<Homepage> {
                         itemCount: filteredProducts.length,
                         itemBuilder: (context, index) {
                           final product = filteredProducts[index];
-                          return ListTile(
-                            leading: product.productimage != null
-                                ? Image.file(
-                                    width: 60,
-                                    height: 120,
-                                    File(product.productimage!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : Container(
-                                    width: 60,
-                                    height: 120,
-                                    color: Colors.grey,
-                                    child: Icon(
-                                      Icons.image,
-                                      color: Colors.white,
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 255, 255, 255)
+                                    .withOpacity(0.4)),
+                            child: ListTile(
+                              leading: product.productimage != null
+                                  ? Image.file(
+                                      width: 60,
+                                      height: 120,
+                                      File(product.productimage!),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      width: 60,
+                                      height: 120,
+                                      color: Colors.grey,
+                                      child: Icon(
+                                        Icons.image,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                            title: Text(product.productname ?? 'No Name'),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Productdetails(product: product)));
-                            },
+                              title: Text(product.productname ?? 'No Name'),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Productdetails(product: product)));
+                              },
+                            ),
                           );
                         },
                       ),
@@ -203,13 +224,18 @@ class _HomepageState extends State<Homepage> {
                 Text(
                   "Product Category",
                   style: GoogleFonts.judson(
-                      textStyle:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+                      textStyle: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white)),
                 ),
                 SizedBox(
                   height: 40,
                 ),
                 ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
                       final newCategory = await showaddCategoryDialog(context);
                       if (newCategory != null && newCategory.isNotEmpty) {
@@ -230,7 +256,7 @@ class _HomepageState extends State<Homepage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Categorylistpage(
-                                    categories: _getCategories()
+                                    categories: categoryProvider.getCategories()
                                       ..add(newCategory))));
                       }
                     },
@@ -242,14 +268,18 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(
                   width: 250,
                   child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Categorylistpage(
-                                  categories: _getCategories())));
+                                  categories:
+                                      categoryProvider.getCategories())));
                     },
-                    icon: Icon(Icons.category),
+                    icon: Icon(Icons.category_outlined),
                     label: Text('View Categories'),
                   ),
                 ),
@@ -263,13 +293,5 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
     );
-  }
-
-  List<String> _getCategories() {
-    final categoris = allProducts
-        .map((product) => product.producttype ?? '')
-        .toSet()
-        .toList();
-    return categoris;
   }
 }

@@ -38,6 +38,7 @@ class _MainpageState extends State<Mainpage> {
         child: SizedBox(
           height: 100,
           child: BottomNavigationBar(
+            backgroundColor: const Color.fromARGB(106, 255, 255, 255),
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
             selectedItemColor: const Color.fromARGB(255, 56, 150, 72),

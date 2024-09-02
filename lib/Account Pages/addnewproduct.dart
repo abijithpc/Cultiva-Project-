@@ -111,6 +111,7 @@ class _AddnewproductState extends State<Addnewproduct> {
             width: screenwidth,
             child: SafeArea(
               child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
                 child: Form(
                   key: _formKey,
                   child: Column(

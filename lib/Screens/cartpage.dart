@@ -46,165 +46,173 @@ class _CartpageState extends State<Cartpage> {
         ),
         centerTitle: true,
       ),
-      body: ValueListenableBuilder(
-        valueListenable: sellInfoBox.listenable(),
-        builder: (context, Box<Sellinfo> sellBox, _) {
-          final sellInfoList = sellBox.values.toList();
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('Assets/Backgroundimage/plant-phone.jpg'),
+                fit: BoxFit.cover)),
+        child: ValueListenableBuilder(
+          valueListenable: sellInfoBox.listenable(),
+          builder: (context, Box<Sellinfo> sellBox, _) {
+            final sellInfoList = sellBox.values.toList();
 
-          // Grouping sellInfoList by customerName
-          final Map<String, List<Sellinfo>> groupedSellInfo = {};
-          for (var sellInfo in sellInfoList) {
-            if (groupedSellInfo.containsKey(sellInfo.customerName)) {
-              groupedSellInfo[sellInfo.customerName]!.add(sellInfo);
-            } else {
-              groupedSellInfo[sellInfo.customerName!] = [sellInfo];
+            // Grouping sellInfoList by customerName
+            final Map<String, List<Sellinfo>> groupedSellInfo = {};
+            for (var sellInfo in sellInfoList) {
+              if (groupedSellInfo.containsKey(sellInfo.customerName)) {
+                groupedSellInfo[sellInfo.customerName]!.add(sellInfo);
+              } else {
+                groupedSellInfo[sellInfo.customerName!] = [sellInfo];
+              }
             }
-          }
 
-          final List<String> customerNames = groupedSellInfo.keys.toList();
+            final List<String> customerNames = groupedSellInfo.keys.toList();
 
-          return ListView.builder(
-            itemCount: customerNames.length,
-            itemBuilder: (context, index) {
-              final customerName = customerNames[index];
-              final customerSellInfo = groupedSellInfo[customerName]!;
+            return ListView.builder(
+              itemCount: customerNames.length,
+              itemBuilder: (context, index) {
+                final customerName = customerNames[index];
+                final customerSellInfo = groupedSellInfo[customerName]!;
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Purchasedetailspage(
-                        customerName: customerName,
-                        customerSellInfo: customerSellInfo,
-                      ),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 226, 226, 226),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: 500,
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Name: ${customerSellInfo.first.customerName ?? 'customerName'}',
-                                  style: GoogleFonts.judson(
-                                    textStyle: TextStyle(fontSize: 18),
-                                  ),
-                                ),
-                                Text(
-                                  'PhoneNumber: ${customerSellInfo.first.customerNumber ?? 'customerNumber'}',
-                                  style: GoogleFonts.judson(
-                                    textStyle: TextStyle(fontSize: 18),
-                                  ),
-                                ),
-                                Text(
-                                  'Date: ${DateTime.now().toString().split(' ')[0]}',
-                                  style: GoogleFonts.judson(
-                                    textStyle: TextStyle(fontSize: 18),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text("Delete Products"),
-                                    content: Text(
-                                        "Are you sure you want to delete all products for this customer?"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text("Cancel"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          deleteSellInfo(customerName);
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text("Yes"),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Purchasedetailspage(
+                          customerName: customerName,
+                          customerSellInfo: customerSellInfo,
                         ),
-                        Divider(color: Colors.black),
-                        Column(
-                          children: customerSellInfo.map((sellInfo) {
-                            final product = productBox.values.firstWhere(
-                              (prod) => prod.productname == sellInfo.product,
-                              orElse: () => Product(
-                                productname: 'Unknown',
-                                description: 'description',
-                                price: '0',
-                                productimage: '',
-                                producttype: 'Unknown',
-                              ),
-                            );
-                            return Row(
-                              children: [
-                                SizedBox(width: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 8,
+                      ),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      width: 500,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Name: ${customerSellInfo.first.customerName ?? 'customerName'}',
+                                    style: GoogleFonts.judson(
+                                      textStyle: TextStyle(fontSize: 18),
                                     ),
-                                    Text(
-                                      product.productname ?? 'Product name',
-                                      style: GoogleFonts.judson(
-                                        textStyle: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
+                                  ),
+                                  Text(
+                                    'PhoneNumber: ${customerSellInfo.first.customerNumber ?? 'customerNumber'}',
+                                    style: GoogleFonts.judson(
+                                      textStyle: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Date: ${DateTime.now().toString().split(' ')[0]}',
+                                    style: GoogleFonts.judson(
+                                      textStyle: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: Text("Delete Products"),
+                                      content: Text(
+                                          "Are you sure you want to delete all products for this customer?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Cancel"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            deleteSellInfo(customerName);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Yes"),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider(color: Colors.black),
+                          Column(
+                            children: customerSellInfo.map((sellInfo) {
+                              final product = productBox.values.firstWhere(
+                                (prod) => prod.productname == sellInfo.product,
+                                orElse: () => Product(
+                                  productname: 'Unknown',
+                                  description: 'description',
+                                  price: '0',
+                                  productimage: '',
+                                  producttype: 'Unknown',
+                                ),
+                              );
+                              return Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        product.productname ?? 'Product name',
+                                        style: GoogleFonts.judson(
+                                          textStyle: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    // Text(
-                                    //   "₹${product.price}",
-                                    //   style: GoogleFonts.judson(
-                                    //     textStyle: TextStyle(
-                                    //       fontSize: 25,
-                                    //       fontWeight: FontWeight.bold,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                        ),
-                      ],
+                                      // Text(
+                                      //   "₹${product.price}",
+                                      //   style: GoogleFonts.judson(
+                                      //     textStyle: TextStyle(
+                                      //       fontSize: 25,
+                                      //       fontWeight: FontWeight.bold,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

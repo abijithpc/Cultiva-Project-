@@ -22,7 +22,7 @@ class _LoginpageState extends State<Loginpage> {
     double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 19, 90, 22),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -47,20 +47,30 @@ class _LoginpageState extends State<Loginpage> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                  child: Text(
-                    "Login Now",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 5,
-                            color: Color.fromARGB(
-                              255,
-                              104,
-                              98,
-                              98,
-                            ),
-                            fontSize: 40)),
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Welcome Back",
+                        style: GoogleFonts.judson(
+                            textStyle:
+                                TextStyle(color: Colors.black, fontSize: 40)),
+                      ),
+                      Text(
+                        "Login Now",
+                        style: GoogleFonts.judson(
+                            textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 5,
+                                color: Color.fromARGB(
+                                  255,
+                                  104,
+                                  98,
+                                  98,
+                                ),
+                                fontSize: 25)),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
                 Flexible(
@@ -76,10 +86,11 @@ class _LoginpageState extends State<Loginpage> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.person),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.3),
                                 border: OutlineInputBorder(),
-                                hintText: "Username"),
+                                labelText: "Username"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Username is required";
@@ -99,11 +110,12 @@ class _LoginpageState extends State<Loginpage> {
                                 AutovalidateMode.onUserInteraction,
                             obscureText: isLoginPassword,
                             decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.password),
                                 suffixIcon: tooglePassword(),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.3),
                                 border: OutlineInputBorder(),
-                                hintText: "Password"),
+                                labelText: "Password"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Password is required';

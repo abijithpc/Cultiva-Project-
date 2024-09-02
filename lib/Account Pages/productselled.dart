@@ -79,7 +79,7 @@ class _ProductselledState extends State<Productselled> {
                         ),
                       ),
                       const SizedBox(
-                        height: 9,
+                        height: 20,
                       ),
                       SizedBox(
                         child: TextFormField(
@@ -100,14 +100,8 @@ class _ProductselledState extends State<Productselled> {
                         ),
                       ),
                       const SizedBox(
-                        height: 9,
+                        height: 20,
                       ),
-                      // const Row(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     Text("Select Product"),
-                      //   ],
-                      // ),
                       SizedBox(
                         child: ValueListenableBuilder(
                           valueListenable:
@@ -150,7 +144,7 @@ class _ProductselledState extends State<Productselled> {
                         ),
                       ),
                       const SizedBox(
-                        height: 9,
+                        height: 25 ,
                       ),
                       SizedBox(
                         height: 10,

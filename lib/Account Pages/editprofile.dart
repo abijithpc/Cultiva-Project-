@@ -67,6 +67,7 @@ class _EditprofileState extends State<Editprofile> {
           padding: const EdgeInsets.all(13.0),
           child: Form(
             child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
                   GestureDetector(

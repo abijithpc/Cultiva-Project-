@@ -75,9 +75,10 @@ class _SignupState extends State<Signup> {
                       controller: nameController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person),
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
-                          hintText: "Username",
+                          labelText: "Username",
                           border: OutlineInputBorder()),
                       validator: (value) => value == null || value.isEmpty
                           ? "Username field is required"
@@ -93,9 +94,10 @@ class _SignupState extends State<Signup> {
                       controller: emailController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
-                          hintText: "Email",
+                          labelText: "Email",
                           border: OutlineInputBorder()),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -118,9 +120,10 @@ class _SignupState extends State<Signup> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.phone),
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
-                          hintText: "Phone Number",
+                          labelText: "Phone Number",
                           border: OutlineInputBorder()),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -142,10 +145,11 @@ class _SignupState extends State<Signup> {
                       controller: passwordController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.password_outlined),
                           suffixIcon: tooglePassword(),
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
-                          hintText: " Password",
+                          labelText: " Password",
                           border: OutlineInputBorder()),
                       validator: (value) => value == null || value.isEmpty
                           ? "Password Field is Required"

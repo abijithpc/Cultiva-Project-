@@ -20,6 +20,14 @@ class Carousel2 extends StatelessWidget {
           'Assets/CarouselImage/stephanie-harvey-vHkj3fX9wCk-unsplash.jpg',
           'Assets/CarouselImage/pexels-delaney-van-vranken-3119898-4977455.jpg',
           'Assets/CarouselImage/kari-shea-3_cyj5YkhTs-unsplash.jpg',
+          'Assets/CarouselImage/igor-son-FV_PxCqgtwc-unsplash.jpg',
+          'Assets/CarouselImage/kara-eads-EbLX7oRo4vI-unsplash.jpg',
+          'Assets/CarouselImage/linh-le-Ebwp2-6BG8E-unsplash.jpg',
+          'Assets/CarouselImage/saffu-Ct1Mx5OTn9A-unsplash.jpg',
+          'Assets/CarouselImage/sarah-dorweiler-2s9aHF4eCjI-unsplash.jpg',
+          'Assets/CarouselImage/sarah-dorweiler-x2Tmfd1-SgA-unsplash.jpg',
+          'Assets/CarouselImage/scott-webb-hDyO6rr3kqk-unsplash.jpg',
+          'Assets/CarouselImage/scott-webb-WwWkgOMU8H8-unsplash.jpg'
         ]
             .map((item) => Container(
                   margin: EdgeInsets.symmetric(horizontal: 5.0),
@@ -34,45 +42,6 @@ class Carousel2 extends StatelessWidget {
                           height: double.infinity,
                         ),
                       ),
-                      Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Container(
-                              height: 100,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 90.0, vertical: 20.0),
-                              color: Colors.black.withOpacity(0.5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text("Indoor Plants",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10.0,
-                                      )),
-                                  Text("Dori Succulent",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13.0,
-                                      )),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text("200",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10.0,
-                                      ))
-                                ],
-                              ),
-                            ),
-                          ))
                     ],
                   ),
                 ))
