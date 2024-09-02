@@ -89,19 +89,13 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Username",
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           controller: editusername,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              labelText: "Username",
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),
@@ -117,20 +111,13 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "PhoneNumber",
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           controller: editphonenumber,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
+                              labelText: "Phone Number",
+                              prefixIcon: Icon(Icons.phone),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),
@@ -146,20 +133,13 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "EmailAddress",
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           controller: editemail,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
+                              labelText: "Email Address",
+                              prefixIcon: Icon(Icons.email),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: OutlineInputBorder()),
@@ -175,20 +155,13 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Password",
-                            textAlign: TextAlign.start,
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           controller: editpassword,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
+                              labelText: "Password",
+                              prefixIcon: Icon(Icons.password),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),

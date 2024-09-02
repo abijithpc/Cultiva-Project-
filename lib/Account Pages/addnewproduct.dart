@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
+
 import 'package:cultiva/function/addproduct/addproduct.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:flutter/material.dart';
@@ -146,6 +147,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.perm_contact_calendar),
                                 hintText: "Product Name",
                                 hintStyle: GoogleFonts.judson(
                                   textStyle: const TextStyle(fontSize: 17),
@@ -165,6 +167,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                             DropdownButtonFormField<String>(
                               value: _selectCategory,
                               decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.type_specimen),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(),
@@ -195,6 +198,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                               keyboardType: TextInputType.number,
                               controller: priceController,
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.currency_rupee),
                                 hintText: "Price",
                                 hintStyle: GoogleFonts.judson(
                                   textStyle: const TextStyle(fontSize: 17),
@@ -217,6 +221,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                                   AutovalidateMode.onUserInteraction,
                               maxLines: 2,
                               decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.description),
                                 hintText: "Description",
                                 hintStyle: GoogleFonts.judson(
                                   textStyle: const TextStyle(fontSize: 17),

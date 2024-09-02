@@ -60,15 +60,13 @@ class _ProductselledState extends State<Productselled> {
                   ),
                   Column(
                     children: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [Text("Full Name")],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: customernameCon,
                           decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              labelText: "Full Name",
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),
@@ -83,15 +81,13 @@ class _ProductselledState extends State<Productselled> {
                       const SizedBox(
                         height: 9,
                       ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [Text("Phone Number")],
-                      ),
                       SizedBox(
                         child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: customerNumberCon,
                           decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.phone),
+                              labelText: "Phone Number",
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),
@@ -106,12 +102,12 @@ class _ProductselledState extends State<Productselled> {
                       const SizedBox(
                         height: 9,
                       ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text("Select Product"),
-                        ],
-                      ),
+                      // const Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Text("Select Product"),
+                      //   ],
+                      // ),
                       SizedBox(
                         child: ValueListenableBuilder(
                           valueListenable:
@@ -121,6 +117,8 @@ class _ProductselledState extends State<Productselled> {
                             return DropdownButtonFormField<String>(
                               value: selectedProduct,
                               decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.select_all_sharp),
+                                  labelText: "Select Product",
                                   filled: true,
                                   fillColor: Colors.white.withOpacity(0.3),
                                   border: const OutlineInputBorder()),
@@ -233,7 +231,7 @@ class _ProductselledState extends State<Productselled> {
 
             return AlertDialog(
               title: Text('Selected Products'),
-              content: Container(
+              content: SizedBox(
                 width: double.maxFinite,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -310,11 +308,10 @@ class _ProductselledState extends State<Productselled> {
                     }
                     Navigator.pop(context);
                   },
-                  child: Text("Save & View details"),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('Close'),
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Close'),
+                  ),
                 ),
               ],
             );

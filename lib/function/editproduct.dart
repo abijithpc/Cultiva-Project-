@@ -70,7 +70,7 @@ class _EditproductState extends State<Editproduct> {
                 child: image != null
                     ? Image.file(
                         image!,
-                        height: 150,
+                        height: 300,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       )
@@ -86,14 +86,20 @@ class _EditproductState extends State<Editproduct> {
               ),
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: 'Product Name'),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.perm_identity),
+                    labelText: 'Product Name',
+                    border: OutlineInputBorder()),
               ),
               SizedBox(
                 height: 16,
               ),
               TextFormField(
                 controller: priceController,
-                decoration: InputDecoration(labelText: 'Product price'),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.currency_rupee),
+                    labelText: 'Product price',
+                    border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
               ),
               SizedBox(
@@ -101,7 +107,10 @@ class _EditproductState extends State<Editproduct> {
               ),
               TextFormField(
                 controller: typeController,
-                decoration: InputDecoration(labelText: 'Product Type'),
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.type_specimen),
+                    labelText: 'Product Type',
+                    border: OutlineInputBorder()),
               )
             ],
           ),

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cultiva/Account%20Pages/editproduct.dart';
+import 'package:cultiva/function/editproduct.dart';
 import 'package:cultiva/function/productpage/editanddelete.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/productdetails.dart';

@@ -21,7 +21,7 @@ class Purchasedetailspage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Product Details",
+          "Purchase Details",
           style: GoogleFonts.judson(
               textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         ),
@@ -65,7 +65,13 @@ class Purchasedetailspage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text("Purchased Product"),
+              child: Container(
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(child: Text("Purchased Product"))),
             ),
             Expanded(
               child: ListView.builder(
