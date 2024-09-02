@@ -12,6 +12,7 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  bool isLoginPassword = true;
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final TextEditingController usernamecntrlr = TextEditingController();
   final TextEditingController passwordcntrlr = TextEditingController();
@@ -96,7 +97,9 @@ class _LoginpageState extends State<Loginpage> {
                             controller: passwordcntrlr,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
+                            obscureText: isLoginPassword,
                             decoration: InputDecoration(
+                                suffixIcon: tooglePassword(),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.3),
                                 border: OutlineInputBorder(),
@@ -170,5 +173,17 @@ class _LoginpageState extends State<Loginpage> {
         ),
       ),
     );
+  }
+
+  Widget tooglePassword() {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isLoginPassword = !isLoginPassword;
+          });
+        },
+        icon: isLoginPassword
+            ? Icon(Icons.visibility)
+            : Icon(Icons.visibility_off));
   }
 }

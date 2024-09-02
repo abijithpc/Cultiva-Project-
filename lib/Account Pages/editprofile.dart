@@ -16,6 +16,7 @@ class Editprofile extends StatefulWidget {
 }
 
 class _EditprofileState extends State<Editprofile> {
+  bool isSecurePassword = true;
   late TextEditingController editusername;
   late TextEditingController editphonenumber;
   late TextEditingController editemail;
@@ -159,9 +160,11 @@ class _EditprofileState extends State<Editprofile> {
                         child: TextFormField(
                           controller: editpassword,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
+                          obscureText: isSecurePassword,
                           decoration: InputDecoration(
                               labelText: "Password",
                               prefixIcon: Icon(Icons.password),
+                              suffixIcon: tooglePassword(),
                               filled: true,
                               fillColor: Colors.white.withOpacity(0.3),
                               border: const OutlineInputBorder()),
@@ -199,5 +202,17 @@ class _EditprofileState extends State<Editprofile> {
         ),
       ),
     );
+  }
+
+  Widget tooglePassword() {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isSecurePassword = !isSecurePassword;
+          });
+        },
+        icon: isSecurePassword
+            ? Icon(Icons.visibility)
+            : Icon(Icons.visibility_off));
   }
 }

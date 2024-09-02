@@ -1,12 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:cultiva/Screens/loginPage.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/function/signup.dart';
-import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -16,6 +13,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  bool isSignUpPassword = true;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -140,9 +138,11 @@ class _SignupState extends State<Signup> {
                   Container(
                     width: screenWidth * 0.85,
                     child: TextFormField(
+                      obscureText: isSignUpPassword,
                       controller: passwordController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
+                          suffixIcon: tooglePassword(),
                           filled: true,
                           fillColor: Colors.white.withOpacity(0.3),
                           hintText: " Password",
@@ -184,5 +184,17 @@ class _SignupState extends State<Signup> {
             )),
       ),
     );
+  }
+
+  Widget tooglePassword() {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isSignUpPassword = !isSignUpPassword;
+          });
+        },
+        icon: isSignUpPassword
+            ? Icon(Icons.visibility)
+            : Icon(Icons.visibility_off));
   }
 }
