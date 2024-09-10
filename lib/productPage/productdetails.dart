@@ -65,7 +65,7 @@ class Productdetails extends StatelessWidget {
               ),
               child: Center(
                   child: Text(
-                "Price: ${product.price!}",
+                "Price: ₹${product.price!}",
                 style: GoogleFonts.judson(
                     textStyle: TextStyle(
                         color: Colors.white,

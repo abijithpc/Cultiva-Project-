@@ -93,17 +93,21 @@ class _AccountpagesState extends State<Accountpages> {
                   ),
                 ),
               ),
-              GestureDetector(
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.solidClipboard),
-                  title: Text(
-                    "Overview",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => Dashboard()));
+              //   },
+              //   child: ListTile(
+              //     leading: FaIcon(FontAwesomeIcons.solidClipboard),
+              //     title: Text(
+              //       "Dashboard",
+              //       style: GoogleFonts.judson(
+              //           textStyle: TextStyle(
+              //               fontSize: 23, fontWeight: FontWeight.w600)),
+              //     ),
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () async {
                   Navigator.pushReplacement(

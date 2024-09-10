@@ -1,3 +1,4 @@
+import 'package:cultiva/function/productselled/showselectedproductdata.dart';
 import 'package:cultiva/function/savedetails/savedetails.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
@@ -40,157 +41,172 @@ class _ProductselledState extends State<Productselled> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: _showSelectedProductsDialog,
+            onPressed: () => showSelectedProductsDialog(
+                context, selectedProducts, customernameCon, customernameCon),
             icon: Icon(Icons.inventory),
           )
         ],
       ),
-      body: SizedBox(
+      body: Container(
         width: screenWidth,
         height: screenheigth,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: customernameCon,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.person),
-                              labelText: "Full Name",
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.3),
-                              border: const OutlineInputBorder()),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Name Field Is Required";
-                            }
-                            return null;
-                          },
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                    'Assets/Backgroundimage/pexels-rickyrecap-2560898.jpg'),
+                fit: BoxFit.cover)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(
+                          child: TextFormField(
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            controller: customernameCon,
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.person),
+                                labelText: "Full Name",
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(0.7),
+                                border: const OutlineInputBorder()),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Name Field Is Required";
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        child: TextFormField(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: customerNumberCon,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.phone),
-                              labelText: "Phone Number",
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.3),
-                              border: const OutlineInputBorder()),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "PhoneNumber Field is Required";
-                            }
-                            return null;
-                          },
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        child: ValueListenableBuilder(
-                          valueListenable:
-                              Hive.box<Product>('productBox').listenable(),
-                          builder: (context, Box<Product> box, _) {
-                            final products = box.values.toList();
-                            return DropdownButtonFormField<String>(
-                              value: selectedProduct,
-                              decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.select_all_sharp),
-                                  labelText: "Select Product",
-                                  filled: true,
-                                  fillColor: Colors.white.withOpacity(0.3),
-                                  border: const OutlineInputBorder()),
-                              items: products.map((product) {
-                                return DropdownMenuItem(
-                                  value: product.productname,
-                                  child: Text(product.productname!),
-                                  onTap: () {
-                                    selectedproductPrice = product.price;
-                                    selectedImagePath = product.productimage;
-                                    selectedProductObject = product;
-                                  },
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedProduct = value;
-                                });
-                                _addProductToSelection();
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return "Please Select Product";
-                                }
-                                return null;
-                              },
-                            );
-                          },
+                        SizedBox(
+                          child: TextFormField(
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            controller: customerNumberCon,
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.phone),
+                                labelText: "Phone Number",
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(0.7),
+                                border: const OutlineInputBorder()),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "PhoneNumber Field is Required";
+                              }
+                              return null;
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 25 ,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          final box = await Hive.openBox<Sellinfo>('sellBox');
-                          if (_formKey.currentState!.validate()) {
-                            for (var product in selectedProducts) {
-                              await saveDetails(
-                                customerName: customernameCon.text,
-                                customerNumber: customerNumberCon.text,
-                                product: product['product'].productname!,
-                                quantity: product['quantity'],
-                                totalPrice: selectedProducts.fold(
-                                  0,
-                                  (sum, item) {
-                                    final product = item['product'];
-                                    final quantity = item['quantity'];
-                                    return sum +
-                                        (int.parse(product.price!) * quantity);
-                                  },
-                                ),
-                                sellBox: box,
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          child: ValueListenableBuilder(
+                            valueListenable:
+                                Hive.box<Product>('productBox').listenable(),
+                            builder: (context, Box<Product> box, _) {
+                              final products = box.values.toList();
+                              return DropdownButtonFormField<String>(
+                                value: selectedProduct,
+                                decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.select_all_sharp),
+                                    labelText: "Select Product",
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.7),
+                                    border: const OutlineInputBorder()),
+                                items: products.map((product) {
+                                  return DropdownMenuItem(
+                                    value: product.productname,
+                                    child: Text(product.productname!),
+                                    onTap: () {
+                                      selectedproductPrice = product.price;
+                                      selectedImagePath = product.productimage;
+                                      selectedProductObject = product;
+                                    },
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedProduct = value;
+                                  });
+                                  _addProductToSelection();
+                                },
+                                validator: (value) {
+                                  if (value == null) {
+                                    return "Please Select Product";
+                                  }
+                                  return null;
+                                },
                               );
-                            }
-
-                            Navigator.pop(context);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 23, 65, 24),
-                            minimumSize: Size(300, 60),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        child: Text(
-                          "Save Details",
-                          style: GoogleFonts.judson(
-                              textStyle:
-                                  TextStyle(color: Colors.white, fontSize: 24)),
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            final box = await Hive.openBox<Sellinfo>('sellBox');
+                            if (_formKey.currentState!.validate()) {
+                              for (var product in selectedProducts) {
+                                await saveDetails(
+                                  customerName: customernameCon.text,
+                                  customerNumber: customerNumberCon.text,
+                                  product: product['product'].productname!,
+                                  quantity: product['quantity'],
+                                  totalPrice: selectedProducts.fold(
+                                    0,
+                                    (sum, item) {
+                                      final product = item['product'];
+                                      final quantity = item['quantity'];
+                                      return sum +
+                                          (int.parse(product.price!) *
+                                              quantity);
+                                    },
+                                  ),
+                                  sellBox: box,
+                                );
+                              }
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text('Details Added Successfully')));
+
+                              Navigator.pop(context);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 23, 65, 24),
+                              minimumSize: Size(300, 60),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Text(
+                            "Save Details",
+                            style: GoogleFonts.judson(
+                                textStyle: TextStyle(
+                                    color: Colors.white, fontSize: 24)),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -208,110 +224,5 @@ class _ProductselledState extends State<Productselled> {
         });
       });
     }
-  }
-
-  void _showSelectedProductsDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            // Calculate the total price of all selected products
-            num totalPrice = selectedProducts.fold(0, (sum, item) {
-              final product = item['product'];
-              final quantity = item['quantity'];
-              return sum + (int.parse(product.price!) * quantity);
-            });
-
-            return AlertDialog(
-              title: Text('Selected Products'),
-              content: SizedBox(
-                width: double.maxFinite,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: selectedProducts.length,
-                        itemBuilder: (context, index) {
-                          final product = selectedProducts[index]['product'];
-                          final quantity = selectedProducts[index]['quantity'];
-                          final price = int.parse(product.price!) * quantity;
-
-                          return ListTile(
-                            title: Text(product.productname!),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Quantity: $quantity'),
-                                Text('Total Price: ₹${price.toString()}'),
-                              ],
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: Icon(Icons.remove),
-                                  onPressed: () {
-                                    setState(() {
-                                      if (selectedProducts[index]['quantity'] >
-                                          1) {
-                                        selectedProducts[index]['quantity']--;
-                                      }
-                                    });
-                                  },
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.add),
-                                  onPressed: () {
-                                    setState(() {
-                                      selectedProducts[index]['quantity']++;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Total Purchase Price: ₹${totalPrice.toString()}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () async {
-                    final box = await Hive.openBox<Sellinfo>('sellBox');
-                    for (var product in selectedProducts) {
-                      await saveDetails(
-                          customerName: customernameCon.text,
-                          customerNumber: customerNumberCon.text,
-                          product: product['product'].productName!,
-                          quantity: product['quantity'],
-                          totalPrice: totalPrice as int,
-                          sellBox: box);
-                    }
-                    Navigator.pop(context);
-                  },
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('Close'),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
   }
 }

@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
         final double productPrice = double.tryParse(product.price ?? '') ?? 0.0;
         final pricMatch = productPrice >= minPrice && productPrice <= maxPrice;
 
-        return (nameMatch || descriptionMatch && pricMatch);
+        return (nameMatch || descriptionMatch) && pricMatch;
       }).toList();
     });
   }

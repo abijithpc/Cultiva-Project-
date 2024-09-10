@@ -1,12 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 
-import 'package:cultiva/function/addproduct/addproduct.dart';
+import 'package:cultiva/function/addnewproduct/addnewproductfuntion.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Addnewproduct extends StatefulWidget {
   final List<String> categories;
@@ -34,61 +33,12 @@ class _AddnewproductState extends State<Addnewproduct> {
       final productBox = Hive.box<Product>('productBox');
       setState(() {
         allProducts = productBox.values.toList();
-        _categories =
-            _getCategories(); // Populate categories after loading products
-        _selectCategory = _categories.isNotEmpty
-            ? _categories[0]
-            : null; // Set default value if necessary
+        _categories = getCategories(allProducts);
+        _selectCategory = _categories.isNotEmpty ? _categories[0] : null;
       });
     }
 
-    loadProducts(); // Load products and then populate categories
-  }
-
-  List<String> _getCategories() {
-    final categories = allProducts
-        .map((product) => product.producttype ?? '')
-        .where((type) => type.isNotEmpty) // Exclude empty strings
-        .toSet()
-        .toList();
-    return categories;
-  }
-
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _selectedProductImage = File(pickedFile.path);
-      });
-    }
-  }
-
-  void _addproduct() async {
-    if (_formKey.currentState!.validate()) {
-      final productName = productController.text;
-      final price = priceController.text;
-      final description = descriptionController.text;
-      final productType = _selectCategory!;
-
-      await Addproduct().addProduct(
-          context: context,
-          productName: productName,
-          price: price,
-          description: description,
-          productType: productType,
-          productImage: _selectedProductImage);
-
-      productController.clear();
-      priceController.clear();
-      descriptionController.clear();
-      setState(() {
-        _selectCategory = null;
-        _selectedProductImage = null;
-      });
-      Navigator.pop(context);
-    }
+    loadProducts();
   }
 
   @override
@@ -120,7 +70,12 @@ class _AddnewproductState extends State<Addnewproduct> {
                         height: 30,
                       ),
                       GestureDetector(
-                        onTap: _pickImage,
+                        onTap: () async {
+                          final pickedImage = await pickImage();
+                          setState(() {
+                            _selectedProductImage = pickedImage;
+                          });
+                        },
                         child: ClipRRect(
                             child: _selectedProductImage != null
                                 ? Image.file(
@@ -241,7 +196,16 @@ class _AddnewproductState extends State<Addnewproduct> {
                             const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
-                                _addproduct();
+                                addProduct(
+                                    context: context,
+                                    formKey: _formKey,
+                                    productController: productController,
+                                    priceController: priceController,
+                                    descriptionController:
+                                        descriptionController,
+                                    selectCategory: _selectCategory!,
+                                    selectedProductImage:
+                                        _selectedProductImage);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:

@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class Splashscreen extends StatefulWidget {
+class Splashscreen extends StatelessWidget {
   const Splashscreen({super.key});
 
   @override
-  State<Splashscreen> createState() => _SplashscreenState();
-}
-
-class _SplashscreenState extends State<Splashscreen> {
-  @override
   Widget build(BuildContext context) {
-    // double ScreenWidth = MediaQuery.of(context).size.width;
-    double screenheigth = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Container(
-        // width: ScreenWidth * 1,
-        height: screenheigth,
+    return Material(
+      child: Container(
+        padding: EdgeInsets.only(top: 100),
         decoration: BoxDecoration(
+            color: Colors.black,
             image: DecorationImage(
-                image: NetworkImage(
-                    'https://unsplash.com/photos/forest-during-daytime-wQImoykAwGs'),
+                image: AssetImage(
+                    'Assets/Backgroundimage/filip-zrnzevic-_EMkxLdko9k-unsplash.jpg'),
                 fit: BoxFit.cover)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "A beautifull plant is like\n having a friend around the house",
+              style: GoogleFonts.judson(textStyle: TextStyle(fontSize: 17)),
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: 100,
+                height: 100,
+                child: Text("Get Started"),
+              ),
+            )
+          ],
         ),
       ),
     );
