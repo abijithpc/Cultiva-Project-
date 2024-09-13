@@ -1,11 +1,14 @@
+import 'package:cultiva/model/dashboard.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Dashboard extends StatefulWidget {
+  final int soldProducts;
   final double totalRevenue;
-  const Dashboard({Key? key, this.totalRevenue = 0.0}) : super(key: key);
+  const Dashboard({Key? key, this.totalRevenue = 0.0, this.soldProducts = 0})
+      : super(key: key);
 
   @override
   State<Dashboard> createState() => _OverviewState();
@@ -16,6 +19,25 @@ class _OverviewState extends State<Dashboard> {
   TextEditingController editContoller = TextEditingController();
   int totalProduct = 1000;
   String selectedTImeRange = 'Week';
+
+  late Box<DashboardData> dashboardBox;
+
+  @override
+  void initState() {
+    super.initState();
+    openDashboardBox();
+  }
+
+  Future<void> openDashboardBox() async {
+    dashboardBox = await Hive.openBox<DashboardData>('dashboardBox');
+
+    final savedData = dashboardBox.get('dashboardData');
+    if (savedData != null) {
+      setState(() {
+        totalProduct = savedData.totalProduct ?? 1000;
+      });
+    }
+  }
 
   final List<BarChartGroupData> weeklyData = [
     BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 1, width: 16)]),
@@ -104,7 +126,13 @@ class _OverviewState extends State<Dashboard> {
     setState(() {
       totalProduct += quantityToAdd;
     });
+    saveTotalProduct();
     addQuantityCntlr.clear();
+  }
+
+  void saveTotalProduct() {
+    final dashboardData = DashboardData(totalProduct: totalProduct);
+    dashboardBox.put('dashboardData', dashboardData);
   }
 
   @override
@@ -182,13 +210,13 @@ class _OverviewState extends State<Dashboard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Sold Product: 890",
+                          "Sold Product: ${widget.soldProducts}",
                           style: GoogleFonts.judson(
                               textStyle:
                                   TextStyle(fontSize: 20, color: Colors.white)),
                         ),
                         Text(
-                          "Unsold Product :110",
+                          "Unsold Product : ${totalProduct - widget.soldProducts}",
                           style: GoogleFonts.judson(
                               textStyle:
                                   TextStyle(fontSize: 20, color: Colors.white)),
@@ -312,6 +340,8 @@ class _OverviewState extends State<Dashboard> {
                     totalProduct =
                         int.tryParse(editContoller.text) ?? totalProduct;
                   });
+
+                  saveTotalProduct();
                   Navigator.of(context).pop();
                 },
                 child: Text("Save"))

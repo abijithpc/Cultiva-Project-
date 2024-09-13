@@ -3,6 +3,7 @@ import 'package:cultiva/Screens/cartpage.dart';
 import 'package:cultiva/Screens/homepage.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,46 +27,23 @@ class _MainpageState extends State<Mainpage> {
   }
 
   final List _pages = [Homepage(), Cartpage(), Accountpages()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(child: _pages[_selectedIndex]),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 5.0,
-        clipBehavior: Clip.antiAlias,
-        padding: EdgeInsets.only(top: 10),
-        child: SizedBox(
-          height: 100,
-          child: BottomNavigationBar(
-            backgroundColor: const Color.fromARGB(106, 255, 255, 255),
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _selectedIndex,
-            selectedItemColor: const Color.fromARGB(255, 56, 150, 72),
-            unselectedItemColor: Colors.black,
-            onTap: bottomnavBar,
-            items: [
-              BottomNavigationBarItem(
-                  icon: FaIcon(
-                    FontAwesomeIcons.house,
-                    size: 20,
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: FaIcon(
-                    FontAwesomeIcons.cartShopping,
-                    size: 20,
-                  ),
-                  label: ""),
-              BottomNavigationBarItem(
-                  icon: FaIcon(
-                    FontAwesomeIcons.solidUser,
-                    size: 20,
-                  ),
-                  label: "")
-            ],
-          ),
-        ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        color: const Color.fromARGB(255, 12, 62, 20),
+        buttonBackgroundColor: const Color.fromARGB(255, 12, 62, 20),
+        height: 60,
+        index: _selectedIndex,
+        onTap: bottomnavBar,
+        items: <Widget>[
+          FaIcon(FontAwesomeIcons.house, size: 20, color: Colors.white),
+          FaIcon(FontAwesomeIcons.cartShopping, size: 20, color: Colors.white),
+          FaIcon(FontAwesomeIcons.solidUser, size: 20, color: Colors.white),
+        ],
       ),
     );
   }

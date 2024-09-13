@@ -38,6 +38,17 @@ class _CartpageState extends State<Cartpage> {
     });
   }
 
+  int calculateTotalQuantity(Map<String, List<Sellinfo>> groupedSellinfo) {
+    int totalQuantity = 0;
+    for (var customerName in groupedSellinfo.keys) {
+      final customerSellinfo = groupedSellinfo[customerName]!;
+      for (var sellInfo in customerSellinfo) {
+        totalQuantity += sellInfo.quantity ?? 0;
+      }
+    }
+    return totalQuantity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +92,8 @@ class _CartpageState extends State<Cartpage> {
                   customerSellInfo, productBox);
               finalTotalPrice += totalPriceCustomer;
             }
+
+            final totalQuantity = calculateTotalQuantity(groupedSellInfo);
 
             return Column(
               children: [
@@ -220,8 +233,8 @@ class _CartpageState extends State<Cartpage> {
                                                 ),
                                               ),
                                             ),
-                                            // Text(
-                                            //     'Quantity: ${sellInfo.quantity}'),
+                                            Text(
+                                                'Quantity: ${sellInfo.quantity}'),
                                           ],
                                         ),
                                       ],
@@ -262,6 +275,7 @@ class _CartpageState extends State<Cartpage> {
                             MaterialPageRoute(
                                 builder: (context) => Dashboard(
                                       totalRevenue: finalTotalPrice,
+                                      soldProducts: totalQuantity,
                                     )));
                       },
                     ),

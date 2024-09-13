@@ -2,6 +2,7 @@ import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/Screens/mainpage.dart';
 import 'package:cultiva/model/cartdata.dart';
 import 'package:cultiva/model/category.dart';
+import 'package:cultiva/model/dashboard.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
@@ -30,8 +31,13 @@ Future<void> main() async {
   Hive.registerAdapter(CartdataAdapter());
   await Hive.openBox<Cartdata>('cartBox');
 
+  //CategoryData
   Hive.registerAdapter(CategoryAdapter());
   await Hive.openBox<Category>('categoryBox');
+
+  //DashBoardData
+  Hive.registerAdapter(DashboardDataAdapter());
+  await Hive.openBox<DashboardData>('dashboardBox');
 
   final authBox = await Hive.openBox('authBox');
 
@@ -61,4 +67,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
- 
