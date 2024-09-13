@@ -1,3 +1,5 @@
+import 'package:cultiva/function/dashboard/dashboard_helper.dart';
+import 'package:cultiva/function/dashboard/showeditproductdialog.dart';
 import 'package:cultiva/model/dashboard.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class Dashboard extends StatefulWidget {
 
 class _OverviewState extends State<Dashboard> {
   TextEditingController addQuantityCntlr = TextEditingController();
-  TextEditingController editContoller = TextEditingController();
+  TextEditingController editController = TextEditingController();
   int totalProduct = 1000;
   String selectedTImeRange = 'Week';
 
@@ -39,100 +41,22 @@ class _OverviewState extends State<Dashboard> {
     }
   }
 
-  final List<BarChartGroupData> weeklyData = [
-    BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 1, width: 16)]),
-    BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 3, width: 16)]),
-    BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 2, width: 16)]),
-    BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 4, width: 16)]),
-    BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: 3, width: 16)]),
-    BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: 5, width: 16)]),
-    BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: 4, width: 16)]),
-  ];
-
-  final List<BarChartGroupData> monthlyData = [
-    BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 5, width: 16)]),
-    BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 6, width: 16)]),
-    BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 8, width: 16)]),
-    BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 7, width: 16)]),
-    BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: 6, width: 16)]),
-    BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: 9, width: 16)]),
-    BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: 8, width: 16)]),
-    BarChartGroupData(x: 7, barRods: [BarChartRodData(toY: 5, width: 16)]),
-    BarChartGroupData(x: 8, barRods: [BarChartRodData(toY: 6, width: 16)]),
-    BarChartGroupData(x: 9, barRods: [BarChartRodData(toY: 8, width: 16)]),
-    BarChartGroupData(x: 10, barRods: [BarChartRodData(toY: 7, width: 16)]),
-    BarChartGroupData(x: 11, barRods: [BarChartRodData(toY: 6, width: 16)]),
-  ];
-
-  List<BarChartGroupData> getChartData() {
-    if (selectedTImeRange == 'Week') {
-      return weeklyData;
-    } else {
-      return monthlyData;
-    }
-  }
-
-  Widget getTitlesWidget(double value, TitleMeta meta) {
-    if (selectedTImeRange == 'Week') {
-      switch (value.toInt()) {
-        case 0:
-          return const Text('Mon');
-        case 1:
-          return const Text('Tue');
-        case 2:
-          return const Text('Wed');
-        case 3:
-          return const Text('Thu');
-        case 4:
-          return const Text('Fri');
-        case 5:
-          return const Text('Sat');
-        case 6:
-          return const Text('Sun');
-      }
-    } else if (selectedTImeRange == 'Month') {
-      switch (value.toInt()) {
-        case 0:
-          return const Text('Jan');
-        case 1:
-          return const Text('Feb');
-        case 2:
-          return const Text('Mar');
-        case 3:
-          return const Text('Apr');
-        case 4:
-          return const Text('May');
-        case 5:
-          return const Text('Jun');
-        case 6:
-          return const Text('Jul');
-        case 7:
-          return const Text('Aug');
-        case 8:
-          return const Text('Sep');
-        case 9:
-          return const Text('Oct');
-        case 10:
-          return const Text('Nov');
-        case 11:
-          return const Text('Dec');
-      }
-    }
-    return const Text('');
-  }
-
-  void addProductQuantity() {
-    int quantityToAdd = int.tryParse(addQuantityCntlr.text) ?? 0;
-    setState(() {
-      totalProduct += quantityToAdd;
-    });
-    saveTotalProduct();
-    addQuantityCntlr.clear();
-  }
-
   void saveTotalProduct() {
     final dashboardData = DashboardData(totalProduct: totalProduct);
     dashboardBox.put('dashboardData', dashboardData);
+  }
+
+  void handleEditPorductDialog() {
+    showEditProductDialog(
+      context,
+      editController,
+      (newValue) {
+        setState(() {
+          totalProduct = newValue;
+        });
+        saveTotalProduct();
+      },
+    );
   }
 
   @override
@@ -169,7 +93,7 @@ class _OverviewState extends State<Dashboard> {
                                   TextStyle(fontSize: 20, color: Colors.white)),
                         ),
                         GestureDetector(
-                            onTap: showEditProductDialog,
+                            onTap: handleEditPorductDialog,
                             child: Icon(Icons.edit)),
                       ],
                     ),
@@ -226,6 +150,68 @@ class _OverviewState extends State<Dashboard> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  height: 250,
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 5,
+                            blurRadius: 10)
+                      ]),
+                  child: PieChart(PieChartData(
+                      sections:
+                          getDoughNutData(widget.soldProducts, totalProduct),
+                      centerSpaceRadius: 60,
+                      sectionsSpace: 4))),
+              SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 16,
+                    height: 16,
+                    color: Colors.green,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text('Sold Products')
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 16,
+                    height: 16,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text('Total Products')
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 16,
+                    height: 16,
+                    color: Colors.blue,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text('Unsold Products')
+                ],
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -263,20 +249,22 @@ class _OverviewState extends State<Dashboard> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
-                    width: getChartData().length * 80.0,
+                    width: getChartData(selectedTImeRange).length * 80.0,
                     child: BarChart(
                       BarChartData(
                         alignment: BarChartAlignment.spaceAround,
                         maxY: 20,
-                        barGroups: getChartData(),
+                        barGroups: getChartData(selectedTImeRange),
                         titlesData: FlTitlesData(
                           leftTitles: AxisTitles(
                             sideTitles: SideTitles(showTitles: true),
                           ),
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
-                                showTitles: true,
-                                getTitlesWidget: getTitlesWidget),
+                              showTitles: true,
+                              getTitlesWidget: (value, meta) => getTitlesWidget(
+                                  value, meta, selectedTImeRange),
+                            ),
                           ),
                         ),
                         gridData: FlGridData(show: true),
@@ -289,65 +277,10 @@ class _OverviewState extends State<Dashboard> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 300,
-                    child: TextField(
-                      controller: addQuantityCntlr,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: 'Add Quantity',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              ElevatedButton(onPressed: addProductQuantity, child: Text("Add"))
             ],
           ),
         ),
       ),
-    );
-  }
-
-  void showEditProductDialog() {
-    editContoller.text = totalProduct.toString();
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Edit Total Product"),
-          content: TextField(
-            controller: editContoller,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(hintText: "Enter new total product"),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text("Cancel")),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    totalProduct =
-                        int.tryParse(editContoller.text) ?? totalProduct;
-                  });
-
-                  saveTotalProduct();
-                  Navigator.of(context).pop();
-                },
-                child: Text("Save"))
-          ],
-        );
-      },
     );
   }
 }

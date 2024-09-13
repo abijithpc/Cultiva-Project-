@@ -31,104 +31,95 @@ class _AccountpagesState extends State<Accountpages> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              GestureDetector(
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.addressBook),
-                  title: Text(
-                    "Account Details",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-                onTap: () {
+              _buildcards(
+                icon: FontAwesomeIcons.addressBook,
+                title: 'AccountDetails',
+                ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Profile()));
                 },
               ),
-              GestureDetector(
-                onTap: () {
+              _buildcards(
+                icon: FontAwesomeIcons.shieldHalved,
+                title: 'Privacy & Policy',
+                ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Privacy()));
                 },
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.shieldHalved),
-                  title: Text(
-                    "Privacy & Policies",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
               ),
-              GestureDetector(
-                onTap: () {
+              _buildcards(
+                icon: FontAwesomeIcons.cartPlus,
+                title: 'Add Products',
+                ontap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Addnewproduct(categories: [])));
                 },
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.cartPlus),
-                  title: Text(
-                    "Add Products",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
               ),
-              GestureDetector(
-                onTap: () {
+              _buildcards(
+                icon: FontAwesomeIcons.tag,
+                title: 'Sold Products',
+                ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Productselled()));
                 },
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.tag),
-                  title: Text(
-                    "Sold Details",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(context,
-              //         MaterialPageRoute(builder: (context) => Dashboard()));
-              //   },
-              //   child: ListTile(
-              //     leading: FaIcon(FontAwesomeIcons.solidClipboard),
-              //     title: Text(
-              //       "Dashboard",
-              //       style: GoogleFonts.judson(
-              //           textStyle: TextStyle(
-              //               fontSize: 23, fontWeight: FontWeight.w600)),
-              //     ),
-              //   ),
-              // ),
-              GestureDetector(
-                onTap: () async {
+              const Spacer(),
+              _buildcards(
+                icon: FontAwesomeIcons.arrowRightFromBracket,
+                iconColor: Colors.red,
+                title: 'Log Out',
+                ontap: () {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Loginhomescreen()));
                 },
-                child: ListTile(
-                  leading: FaIcon(
-                    FontAwesomeIcons.arrowRightFromBracket,
-                    color: Colors.red,
-                  ),
-                  title: Text(
-                    "Logout",
-                    style: GoogleFonts.judson(
-                        textStyle: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ),
+              )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildcards(
+      {required IconData icon,
+      required String title,
+      required Function() ontap,
+      Color iconColor = Colors.black}) {
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 3))
+            ]),
+        child: ListTile(
+          leading: FaIcon(
+            icon,
+            size: 28,
+            color: iconColor,
+          ),
+          title: Text(
+            title,
+            style: GoogleFonts.judson(
+                textStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black)),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.grey,
           ),
         ),
       ),
