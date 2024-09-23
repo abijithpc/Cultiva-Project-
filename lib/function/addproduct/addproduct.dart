@@ -11,17 +11,18 @@ class Addproduct {
     required String price,
     required String description,
     required String productType,
+    required String productQuantity,
     File? productImage,
   }) async {
     var box = Hive.box<Product>('productBox');
 
     final product = Product(
-      productname: productName,
-      description: description,
-      price: price,
-      productimage: productImage?.path,
-      producttype: productType,
-    );
+        productname: productName,
+        description: description,
+        price: price,
+        productimage: productImage?.path,
+        producttype: productType,
+        productQuantity: productQuantity);
 
     await box.add(product);
 

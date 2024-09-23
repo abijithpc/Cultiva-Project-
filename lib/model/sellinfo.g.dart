@@ -22,7 +22,7 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       product: fields[2] as String?,
       quantity: fields[3] as int?,
       totalPrice: fields[5] as num?,
-      date: fields[4] as DateTime?,
+      sellDate: fields[4] as DateTime?,
     );
   }
 
@@ -39,7 +39,7 @@ class SellinfoAdapter extends TypeAdapter<Sellinfo> {
       ..writeByte(3)
       ..write(obj.quantity)
       ..writeByte(4)
-      ..write(obj.date)
+      ..write(obj.sellDate)
       ..writeByte(5)
       ..write(obj.totalPrice);
   }

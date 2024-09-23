@@ -17,14 +17,21 @@ class _EditproductState extends State<Editproduct> {
   late TextEditingController nameController;
   late TextEditingController priceController;
   late TextEditingController typeController;
+  late TextEditingController descriptionController;
+  late TextEditingController productQuantityController;
   File? image;
 
   @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.product.productname);
+    descriptionController =
+        TextEditingController(text: widget.product.description);
+    productQuantityController =
+        TextEditingController(text: widget.product.productQuantity.toString());
     priceController =
         TextEditingController(text: widget.product.price.toString());
+
     typeController = TextEditingController(text: widget.product.producttype);
     image = widget.product.productimage != null
         ? File(widget.product.productimage!)
@@ -48,6 +55,8 @@ class _EditproductState extends State<Editproduct> {
     widget.product.price = priceController.text;
     widget.product.producttype = typeController.text;
     widget.product.productimage = image?.path;
+    widget.product.description = descriptionController.text;
+    widget.product.productQuantity = productQuantityController.text;
 
     box.put(widget.product.key, widget.product);
     Navigator.of(context).pop();
@@ -106,10 +115,30 @@ class _EditproductState extends State<Editproduct> {
                 height: 16,
               ),
               TextFormField(
+                controller: productQuantityController,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.description),
+                    labelText: 'Product Quantity',
+                    border: OutlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              TextFormField(
                 controller: typeController,
                 decoration: InputDecoration(
                     prefixIcon: Icon(Icons.type_specimen),
                     labelText: 'Product Type',
+                    border: OutlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              TextFormField(
+                controller: descriptionController,
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.description),
+                    labelText: 'Product Description',
                     border: OutlineInputBorder()),
               )
             ],

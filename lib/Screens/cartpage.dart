@@ -153,7 +153,7 @@ class _CartpageState extends State<Cartpage> {
                                           ),
                                         ),
                                         Text(
-                                          'Date: ${formatDate(DateTime.now())}',
+                                          'Date:${customerSellInfo.first.sellDate != null ? formatDate(customerSellInfo.first.sellDate!) : 'No Date'}',
                                           style: GoogleFonts.judson(
                                             textStyle: TextStyle(fontSize: 18),
                                           ),

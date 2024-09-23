@@ -14,7 +14,7 @@ double calculateTotalPriceForAllCustomer(
           description: 'description',
           price: '0',
           productimage: 'productimage',
-          producttype: 'producttype'),
+          producttype: 'producttype',),
     );
     totalPrice += (double.tryParse(product.price!) ?? 0.0) * sellInfo.quantity!;
   }

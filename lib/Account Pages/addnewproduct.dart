@@ -22,6 +22,7 @@ class _AddnewproductState extends State<Addnewproduct> {
   TextEditingController productController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController ProductquantityController = TextEditingController();
   File? _selectedProductImage;
   List<Product> allProducts = [];
 
@@ -84,10 +85,10 @@ class _AddnewproductState extends State<Addnewproduct> {
                                     height: screenheigth * 0.2,
                                   )
                                 : Image.asset(
-                                    'Assets/profile.png',
+                                    'Assets/add-image-photo-icon.png',
                                     width: screenwidth,
                                     height: screenheigth * 0.2,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                   )),
                       ),
                       const SizedBox(
@@ -194,6 +195,22 @@ class _AddnewproductState extends State<Addnewproduct> {
                               },
                             ),
                             const SizedBox(height: 10),
+                            TextFormField(
+                              controller: ProductquantityController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.numbers),
+                                  hintText: "Product Quantity",
+                                  hintStyle: GoogleFonts.judson(
+                                    textStyle: const TextStyle(fontSize: 17),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  fillColor: Colors.white,
+                                  filled: true),
+                            ),
+                            const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
                                 addProduct(
@@ -204,8 +221,9 @@ class _AddnewproductState extends State<Addnewproduct> {
                                     descriptionController:
                                         descriptionController,
                                     selectCategory: _selectCategory!,
-                                    selectedProductImage:
-                                        _selectedProductImage);
+                                    selectedProductImage: _selectedProductImage,
+                                    productQuantityController:
+                                        ProductquantityController);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:

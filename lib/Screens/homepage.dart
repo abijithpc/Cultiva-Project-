@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage> {
                     'Assets/Backgroundimage/plant-phone-cfbq4km7t75tc4wi.jpg'),
                 fit: BoxFit.cover)),
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               Padding(

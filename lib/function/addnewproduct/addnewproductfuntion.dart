@@ -29,6 +29,7 @@ Future<void> addProduct({
   required TextEditingController productController,
   required TextEditingController priceController,
   required TextEditingController descriptionController,
+  required TextEditingController productQuantityController,
   required String selectCategory,
   required File? selectedProductImage,
 }) async {
@@ -37,6 +38,7 @@ Future<void> addProduct({
     final price = priceController.text;
     final description = descriptionController.text;
     final productType = selectCategory;
+    final productquantity = productQuantityController.text;
 
     await Addproduct().addProduct(
       context: context,
@@ -45,6 +47,7 @@ Future<void> addProduct({
       description: description,
       productType: productType,
       productImage: selectedProductImage,
+      productQuantity: productquantity,
     );
 
     productController.clear();

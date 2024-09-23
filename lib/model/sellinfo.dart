@@ -1,4 +1,3 @@
-import 'package:cultiva/model/product.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'sellinfo.g.dart';
@@ -18,7 +17,7 @@ class Sellinfo extends HiveObject {
   int? quantity;
 
   @HiveField(4)
-  DateTime? date;
+  DateTime? sellDate;
 
   @HiveField(5)
   num? totalPrice;
@@ -29,5 +28,5 @@ class Sellinfo extends HiveObject {
       required this.product,
       required this.quantity,
       required this.totalPrice,
-      this.date});
+      this.sellDate});
 }

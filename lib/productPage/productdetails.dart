@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cultiva/function/soldquantity/soldquantity.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,12 @@ class Productdetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
+
+    final initalStock = int.tryParse(product.productQuantity.toString()) ?? 0;
+    final soldQuantity = getSoldQuantity(product.productname);
+    final remainingStock = initalStock - soldQuantity;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -54,25 +61,57 @@ class Productdetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 40,
             ),
-            Container(
-              width: 280,
-              height: 70,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 22, 95, 24),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                  child: Text(
-                "Price: ₹${product.price!}",
-                style: GoogleFonts.judson(
-                    textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold)),
-              )),
-            )
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: screenWidth * 0.5,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 22, 95, 24),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Product Quantity: $remainingStock",
+                        style: GoogleFonts.judson(
+                            textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold)),
+                      )),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: screenWidth * 0.4,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 22, 95, 24),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                          child: Text(
+                        "Price: ₹${product.price}",
+                        style: GoogleFonts.judson(
+                            textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold)),
+                      )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

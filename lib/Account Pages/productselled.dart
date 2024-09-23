@@ -53,7 +53,7 @@ class _ProductselledState extends State<Productselled> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
-                    'Assets/Backgroundimage/pexels-rickyrecap-2560898.jpg'),
+                    'Assets/Backgroundimage/pexels-rickyrecap-2560898-min.jpg'),
                 fit: BoxFit.cover)),
         child: Center(
           child: Padding(

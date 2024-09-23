@@ -1,3 +1,4 @@
+import 'package:cultiva/Account%20Pages/revenuesection.dart';
 import 'package:cultiva/Screens/accountpage.dart';
 import 'package:cultiva/Screens/cartpage.dart';
 import 'package:cultiva/Screens/homepage.dart';
@@ -26,7 +27,12 @@ class _MainpageState extends State<Mainpage> {
     });
   }
 
-  final List _pages = [Homepage(), Cartpage(), Accountpages()];
+  final List _pages = [
+    Homepage(),
+    Cartpage(),
+    Revenuesection(),
+    Accountpages()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +48,7 @@ class _MainpageState extends State<Mainpage> {
         items: <Widget>[
           FaIcon(FontAwesomeIcons.house, size: 20, color: Colors.white),
           FaIcon(FontAwesomeIcons.cartShopping, size: 20, color: Colors.white),
+          FaIcon(FontAwesomeIcons.dollarSign, size: 20, color: Colors.white),
           FaIcon(FontAwesomeIcons.solidUser, size: 20, color: Colors.white),
         ],
       ),

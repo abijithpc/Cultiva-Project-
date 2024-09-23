@@ -34,7 +34,7 @@ class Purchasedetailspage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'Assets/Backgroundimage/pexels-ian-panelo-3571551.jpg',
+              'Assets/Backgroundimage/pexels-ian-panelo-3571551-min.jpg',
             ),
             fit: BoxFit.cover,
           ),

@@ -1,4 +1,5 @@
 import 'package:cultiva/Account%20Pages/addnewproduct.dart';
+import 'package:cultiva/Account%20Pages/outofstock.dart';
 import 'package:cultiva/Account%20Pages/privacy&policy.dart';
 import 'package:cultiva/Account%20Pages/productselled.dart';
 import 'package:cultiva/Account%20Pages/profile.dart';
@@ -63,6 +64,14 @@ class _AccountpagesState extends State<Accountpages> {
                 ontap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Productselled()));
+                },
+              ),
+              _buildcards(
+                icon: FontAwesomeIcons.ban,
+                title: 'Stock Out Items',
+                ontap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Outofstock()));
                 },
               ),
               const Spacer(),

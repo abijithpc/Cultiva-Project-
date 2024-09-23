@@ -21,6 +21,7 @@ class _LoginscreenState extends State<Loginhomescreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
@@ -40,7 +41,7 @@ class _LoginscreenState extends State<Loginhomescreen> {
                 ],
               ),
               const SizedBox(height: 30),
-              CarouselItems(), 
+              CarouselItems(),
               // const SizedBox(
               //   height: 20,
               // ),

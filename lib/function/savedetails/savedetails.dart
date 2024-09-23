@@ -10,11 +10,11 @@ Future<void> saveDetails({
   required Box<Sellinfo> sellBox,
 }) async {
   final sellinfo = Sellinfo(
-    customerName: customerName,
-    customerNumber: customerNumber,
-    product: product,
-    quantity: quantity,
-    totalPrice: totalPrice,
-  );
+      customerName: customerName,
+      customerNumber: customerNumber,
+      product: product,
+      quantity: quantity,
+      totalPrice: totalPrice,
+      sellDate: DateTime.now());
   await sellBox.add(sellinfo);
 }

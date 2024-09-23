@@ -1,6 +1,6 @@
-import 'package:cultiva/function/dashboard/dashboard_helper.dart';
-import 'package:cultiva/function/dashboard/showeditproductdialog.dart';
-import 'package:cultiva/model/dashboard.dart';
+import 'package:cultiva/Account%20Pages/revenuesection.dart';
+import 'package:cultiva/model/product.dart';
+import 'package:cultiva/model/sellinfo.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +9,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 class Dashboard extends StatefulWidget {
   final int soldProducts;
   final double totalRevenue;
-  const Dashboard({Key? key, this.totalRevenue = 0.0, this.soldProducts = 0})
-      : super(key: key);
+  const Dashboard({
+    Key? key,
+    this.totalRevenue = 0.0,
+    this.soldProducts = 0,
+  }) : super(key: key);
 
   @override
   State<Dashboard> createState() => _OverviewState();
@@ -19,48 +22,12 @@ class Dashboard extends StatefulWidget {
 class _OverviewState extends State<Dashboard> {
   TextEditingController addQuantityCntlr = TextEditingController();
   TextEditingController editController = TextEditingController();
-  int totalProduct = 1000;
   String selectedTImeRange = 'Week';
-
-  late Box<DashboardData> dashboardBox;
-
-  @override
-  void initState() {
-    super.initState();
-    openDashboardBox();
-  }
-
-  Future<void> openDashboardBox() async {
-    dashboardBox = await Hive.openBox<DashboardData>('dashboardBox');
-
-    final savedData = dashboardBox.get('dashboardData');
-    if (savedData != null) {
-      setState(() {
-        totalProduct = savedData.totalProduct ?? 1000;
-      });
-    }
-  }
-
-  void saveTotalProduct() {
-    final dashboardData = DashboardData(totalProduct: totalProduct);
-    dashboardBox.put('dashboardData', dashboardData);
-  }
-
-  void handleEditPorductDialog() {
-    showEditProductDialog(
-      context,
-      editController,
-      (newValue) {
-        setState(() {
-          totalProduct = newValue;
-        });
-        saveTotalProduct();
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -74,102 +41,157 @@ class _OverviewState extends State<Dashboard> {
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 220,
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.blue[400],
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Total Product:\n $totalProduct",
-                          style: GoogleFonts.judson(
-                              textStyle:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
-                        ),
-                        GestureDetector(
-                            onTap: handleEditPorductDialog,
-                            child: Icon(Icons.edit)),
-                      ],
-                    ),
-                  ),
-                  Row(
+              ValueListenableBuilder<Box<Product>>(
+                valueListenable: Hive.box<Product>('productBox').listenable(),
+                builder: (context, productBox, _) {
+                  final totalProduct = productBox.length;
+
+                  num totalQuantity =
+                      productBox.values.fold<num>(0, (sum, product) {
+                    try {
+                      return sum +
+                          (num.tryParse(product.productQuantity.toString()) ??
+                              0);
+                    } catch (e) {
+                      return sum;
+                    }
+                  });
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 160,
+                        width: screenWidth * 0.6,
                         height: 150,
                         decoration: BoxDecoration(
                             color: Colors.blue[400],
                             borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: Text(
-                            "Total Revenue:\n ₹${widget.totalRevenue.toStringAsFixed(2)}",
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Total Product:\n $totalProduct",
+                              style: GoogleFonts.judson(
+                                  textStyle: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          width: screenWidth * 0.3,
+                          height: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.blue[400],
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                              child: Text(
+                            "Total Quantity:\n $totalQuantity",
                             style: GoogleFonts.judson(
                                 textStyle: TextStyle(
                                     fontSize: 18, color: Colors.white)),
-                          ),
-                        ),
-                      )
+                          ))),
                     ],
-                  )
-                ],
+                  );
+                },
               ),
               SizedBox(
                 height: 14,
               ),
-              Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.blue[200],
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Sold Product: ${widget.soldProducts}",
-                          style: GoogleFonts.judson(
-                              textStyle:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
+              ValueListenableBuilder<Box<Product>>(
+                valueListenable: Hive.box<Product>('ProductBox').listenable(),
+                builder: (context, productBox, _) {
+                  final totalProduct = productBox.length;
+
+                  num totalQuantity =
+                      productBox.values.fold<num>(0, (sum, product) {
+                    try {
+                      return sum +
+                          (num.tryParse(product.productQuantity.toString()) ??
+                              0);
+                    } catch (e) {
+                      return sum;
+                    }
+                  });
+                  final unsoldProduct = totalQuantity - widget.soldProducts;
+
+                  return Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 150,
+                        decoration: BoxDecoration(
+                            color: Colors.blue[400],
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Number of Sales: ${widget.soldProducts}",
+                              style: GoogleFonts.judson(
+                                  textStyle: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ),
+                            Text(
+                              "Unsold Product : $unsoldProduct",
+                              style: GoogleFonts.judson(
+                                  textStyle: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            )
+                          ],
                         ),
-                        Text(
-                          "Unsold Product : ${totalProduct - widget.soldProducts}",
-                          style: GoogleFonts.judson(
-                              textStyle:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Revenuesection()));
+                        },
+                        child: Container(
+                            width: 160,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: Colors.blue[400],
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                                child: Text(
+                              "Total Revenue:\n ₹${widget.totalRevenue.toStringAsFixed(2)}",
+                              style: GoogleFonts.judson(
+                                  textStyle: TextStyle(
+                                      fontSize: 18, color: Colors.white)),
+                            ))),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        height: 250,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  spreadRadius: 5,
+                                  blurRadius: 10)
+                            ]),
+                        child: PieChart(
+                          PieChartData(
+                              sections: getDoughNutData(
+                                  widget.soldProducts, totalProduct),
+                              centerSpaceRadius: 60,
+                              sectionsSpace: 4),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  height: 250,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            spreadRadius: 5,
-                            blurRadius: 10)
-                      ]),
-                  child: PieChart(PieChartData(
-                      sections:
-                          getDoughNutData(widget.soldProducts, totalProduct),
-                      centerSpaceRadius: 60,
-                      sectionsSpace: 4))),
               SizedBox(
                 height: 16,
               ),
@@ -183,20 +205,7 @@ class _OverviewState extends State<Dashboard> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text('Sold Products')
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 16,
-                    height: 16,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text('Total Products')
+                  Text('Number of Sales')
                 ],
               ),
               Row(
@@ -209,78 +218,82 @@ class _OverviewState extends State<Dashboard> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text('Unsold Products')
+                  Text('Total Products')
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownButton<String>(
-                    value: selectedTImeRange,
-                    items: [
-                      'Week',
-                      'Month',
-                    ].map((String range) {
-                      return DropdownMenuItem(value: range, child: Text(range));
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedTImeRange = newValue!;
-                      });
+              Text("Product Stock",
+                  style: GoogleFonts.judson(
+                      textStyle: TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold))),
+              ValueListenableBuilder<Box<Product>>(
+                valueListenable: Hive.box<Product>('productBox').listenable(),
+                builder: (context, productBox, _) {
+                  final products = productBox.values.toList();
+                  final sellInfos =
+                      Hive.box<Sellinfo>('sellBox').values.toList();
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+
+                      final totalSold = sellInfos
+                          .where((sellInfo) =>
+                              sellInfo.product == product.productname)
+                          .fold(
+                              0,
+                              (sum, sellInfo) =>
+                                  sum + (sellInfo.quantity ?? 0));
+
+                      final intialStock = num.tryParse(
+                              product.productQuantity?.toString() ?? '0') ??
+                          0;
+                      return ListTile(
+                        title: Text(product.productname ?? "Unamed Product"),
+                        subtitle: Text(
+                            "Stock: ${intialStock - totalSold} / $intialStock "),
+                        trailing: Text("Price: ${product.price}"),
+                      );
                     },
-                  )
-                ],
-              ),
-              Container(
-                height: 300,
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 10,
-                          spreadRadius: 5)
-                    ]),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SizedBox(
-                    width: getChartData(selectedTImeRange).length * 80.0,
-                    child: BarChart(
-                      BarChartData(
-                        alignment: BarChartAlignment.spaceAround,
-                        maxY: 20,
-                        barGroups: getChartData(selectedTImeRange),
-                        titlesData: FlTitlesData(
-                          leftTitles: AxisTitles(
-                            sideTitles: SideTitles(showTitles: true),
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              getTitlesWidget: (value, meta) => getTitlesWidget(
-                                  value, meta, selectedTImeRange),
-                            ),
-                          ),
-                        ),
-                        gridData: FlGridData(show: true),
-                        borderData: FlBorderData(
-                          show: true,
-                          border: Border.all(color: Colors.grey, width: 1),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+                  );
+                },
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<PieChartSectionData> getDoughNutData(
+    int soldProducts,
+    int totalProduct,
+  ) {
+    return [
+      PieChartSectionData(
+          color: Colors.green,
+          value: soldProducts.toDouble(),
+          title: '$soldProducts',
+          radius: 50,
+          titleStyle: GoogleFonts.judson(
+              textStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white))),
+      PieChartSectionData(
+          color: Colors.blue,
+          value: totalProduct.toDouble(),
+          title: '$totalProduct',
+          radius: 50,
+          titleStyle: GoogleFonts.judson(
+              textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold))),
+    ];
   }
 }

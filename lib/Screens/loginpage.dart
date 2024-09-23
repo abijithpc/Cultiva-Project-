@@ -40,6 +40,7 @@ class _LoginpageState extends State<Loginpage> {
                     'Assets/Backgroundimage/raihan-n-aziz-vXqYyGs3_Pc-unsplash.jpg'),
                 fit: BoxFit.cover)),
         child: SingleChildScrollView(
+          
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,

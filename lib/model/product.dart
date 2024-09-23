@@ -19,10 +19,14 @@ class Product extends HiveObject {
   @HiveField(4)
   String producttype;
 
+  @HiveField(5)
+  String? productQuantity;
+
   Product(
       {required this.productname,
       required this.description,
       required this.price,
       required this.productimage,
-      required this.producttype});
+      required this.producttype,
+      this.productQuantity});
 }

@@ -74,25 +74,28 @@ class _ProfileState extends State<Profile> {
             color: Color.fromARGB(255, 174, 236, 177),
             height: screenheigth * .40,
             width: screenWidth * 1,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'Hello ${_user.username}...',
-                  style: GoogleFonts.judson(textStyle: TextStyle(fontSize: 30)),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                CircleAvatar(
-                  radius: 75,
-                  backgroundImage: _user.profileImage != null
-                      ? FileImage(File(_user.profileImage!))
-                      : AssetImage('Assets/profile.png') as ImageProvider,
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    'Hello ${_user.username}...',
+                    style:
+                        GoogleFonts.judson(textStyle: TextStyle(fontSize: 30)),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  CircleAvatar(
+                    radius: 75,
+                    backgroundImage: _user.profileImage != null
+                        ? FileImage(File(_user.profileImage!))
+                        : AssetImage('Assets/profile.png') as ImageProvider,
+                  )
+                ],
+              ),
             ),
           ),
           Column(

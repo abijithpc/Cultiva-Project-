@@ -49,7 +49,7 @@ class _CategorylistpageState extends State<Categorylistpage> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'Assets/Backgroundimage/pexels-guihankenne-2792070.jpg',
+              'Assets/Backgroundimage/pexels-guihankenne-2792070-min.jpg',
             ),
             fit: BoxFit.cover,
           ),
