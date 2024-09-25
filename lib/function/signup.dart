@@ -30,6 +30,7 @@ class SignupHelper {
       numbercontroller.clear();
 
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(builder: (context) => Loginpage()),
       );

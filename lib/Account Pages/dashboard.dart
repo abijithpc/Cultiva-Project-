@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:cultiva/Account%20Pages/revenuesection.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
@@ -6,20 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class Dashboard extends StatefulWidget {
+class dashboard extends StatefulWidget {
   final int soldProducts;
   final double totalRevenue;
-  const Dashboard({
-    Key? key,
+  const dashboard({
+    super.key,
     this.totalRevenue = 0.0,
     this.soldProducts = 0,
-  }) : super(key: key);
+  });
 
   @override
-  State<Dashboard> createState() => _OverviewState();
+  State<dashboard> createState() => _OverviewState();
 }
 
-class _OverviewState extends State<Dashboard> {
+class _OverviewState extends State<dashboard> {
   TextEditingController addQuantityCntlr = TextEditingController();
   TextEditingController editController = TextEditingController();
   String selectedTImeRange = 'Week';
@@ -27,7 +29,6 @@ class _OverviewState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -58,7 +59,7 @@ class _OverviewState extends State<Dashboard> {
                   });
 
                   return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         width: screenWidth * 0.6,
@@ -79,7 +80,7 @@ class _OverviewState extends State<Dashboard> {
                         ),
                       ),
                       Container(
-                          width: screenWidth * 0.3,
+                          width: screenWidth * 0.26,
                           height: 150,
                           decoration: BoxDecoration(
                               color: Colors.blue[400],

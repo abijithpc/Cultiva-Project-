@@ -24,6 +24,7 @@ Future<void> checklogin(
           'currentUserIndex', userBox.keys.toList().indexOf(user.key));
 
       Navigator.pushAndRemoveUntil(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
               builder: (context) => const Mainpage(

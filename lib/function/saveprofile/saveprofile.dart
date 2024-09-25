@@ -25,6 +25,7 @@ Future<void> saveProfile(
 
     await box.putAt(index, updatedUser);
 
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 }

@@ -181,8 +181,10 @@ class _EditprofileState extends State<Editprofile> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      saveProfile(widget.user, editusername, editphonenumber,
-                          editemail, editpassword, _image, context);
+                      setState(() {
+                        saveProfile(widget.user, editusername, editphonenumber,
+                            editemail, editpassword, _image, context);
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 23, 65, 24),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:cultiva/function/addproduct/addproduct.dart';
@@ -7,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 List<String> getCategories(List<Product> allProducts) {
   final categories = allProducts
-      .map((product) => product.producttype ?? '')
+      .map((product) => product.producttype)
       .where((type) => type.isNotEmpty)
       .toSet()
       .toList();

@@ -36,8 +36,8 @@ Future<void> main() async {
   await Hive.openBox<Category>('categoryBox');
 
   //DashBoardData
-  Hive.registerAdapter(DashboardDataAdapter());
-  await Hive.openBox<DashboardData>('dashboardBox');
+  Hive.registerAdapter(dashboardDataAdapter());
+  await Hive.openBox<dashboardData>('dashboardBox');
 
   final authBox = await Hive.openBox('authBox');
 
@@ -52,7 +52,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
 
-  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {

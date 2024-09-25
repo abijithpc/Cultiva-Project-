@@ -1,6 +1,6 @@
 import 'package:cultiva/Screens/loginPage.dart';
 import 'package:cultiva/Screens/signup.dart';
-import 'package:cultiva/widget/carouselItems.dart';
+import 'package:cultiva/widget/carouselitems.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -35,13 +35,13 @@ class _LoginscreenState extends State<Loginhomescreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                colors: [
+                colors: const [
                   Colors.green,
-                  const Color.fromARGB(255, 199, 194, 194),
+                  Color.fromARGB(255, 199, 194, 194),
                 ],
               ),
               const SizedBox(height: 30),
-              CarouselItems(),
+              carousel_Items(),
               // const SizedBox(
               //   height: 20,
               // ),

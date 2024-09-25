@@ -106,7 +106,7 @@ class _HomepageState extends State<Homepage> {
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
                   )),
-                  colors: [Colors.green, Color.fromARGB(255, 199, 194, 194)],
+                  colors: const [Colors.green, Color.fromARGB(255, 199, 194, 194)],
                 ),
               ),
               Padding(
@@ -253,6 +253,7 @@ class _HomepageState extends State<Homepage> {
                         setState(() {});
 
                         Navigator.push(
+                            // ignore: use_build_context_synchronously
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Categorylistpage(

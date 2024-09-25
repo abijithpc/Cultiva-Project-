@@ -13,7 +13,7 @@ class Productdetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenheigth = MediaQuery.of(context).size.height;
+    // double screenheigth = MediaQuery.of(context).size.height;
 
     final initalStock = int.tryParse(product.productQuantity.toString()) ?? 0;
     final soldQuantity = getSoldQuantity(product.productname);

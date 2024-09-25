@@ -1,3 +1,4 @@
+import 'package:cultiva/Account%20Pages/productselled.dart';
 import 'package:cultiva/Account%20Pages/revenuesection.dart';
 import 'package:cultiva/Screens/accountpage.dart';
 import 'package:cultiva/Screens/cartpage.dart';
@@ -30,8 +31,9 @@ class _MainpageState extends State<Mainpage> {
   final List _pages = [
     Homepage(),
     Cartpage(),
+    Productselled(),
     Revenuesection(),
-    Accountpages()
+    Accountpages(),
   ];
 
   @override
@@ -45,11 +47,12 @@ class _MainpageState extends State<Mainpage> {
         height: 60,
         index: _selectedIndex,
         onTap: bottomnavBar,
-        items: <Widget>[
-          FaIcon(FontAwesomeIcons.house, size: 20, color: Colors.white),
-          FaIcon(FontAwesomeIcons.cartShopping, size: 20, color: Colors.white),
-          FaIcon(FontAwesomeIcons.dollarSign, size: 20, color: Colors.white),
-          FaIcon(FontAwesomeIcons.solidUser, size: 20, color: Colors.white),
+        items: const <Widget>[
+          FaIcon(FontAwesomeIcons.house, size: 19, color: Colors.white),
+          FaIcon(FontAwesomeIcons.cartShopping, size: 19, color: Colors.white),
+          FaIcon(FontAwesomeIcons.plus, size: 37, color: Colors.white),
+          FaIcon(FontAwesomeIcons.dollarSign, size: 19, color: Colors.white),
+          FaIcon(FontAwesomeIcons.solidUser, size: 19, color: Colors.white),
         ],
       ),
     );

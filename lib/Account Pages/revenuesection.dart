@@ -28,8 +28,6 @@ class _RevenuesectionState extends State<Revenuesection> {
   }
 
   Map<String, num> calculateRevenueByDate(List<Sellinfo> sales) {
-    Map<String, num> revenueByDate = {};
-
     for (var sale in sales) {
       if (sale.sellDate != null && sale.totalPrice != null) {
         String formattedDate = DateFormat('dd-MM-yyyy').format(sale.sellDate!);
@@ -51,7 +49,6 @@ class _RevenuesectionState extends State<Revenuesection> {
     double screenheigth = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: Text(
           "Revenue Section",
           style: GoogleFonts.judson(
@@ -77,6 +74,8 @@ class _RevenuesectionState extends State<Revenuesection> {
                       color: const Color.fromARGB(255, 255, 255, 255),
                       borderRadius: BorderRadius.circular(12)),
                   child: DropdownButton<String>(
+                    underline: SizedBox(),
+                    icon: Icon(Icons.calendar_month, color: Colors.green),
                     hint: Text("Select a Date"),
                     items: revenueByDate.keys.map((String date) {
                       return DropdownMenuItem<String>(
@@ -98,22 +97,25 @@ class _RevenuesectionState extends State<Revenuesection> {
                   Container(
                     alignment: Alignment.center,
                     width: screenWidth * 0.5,
-                    height: screenheigth * 0.1,
+                    height: screenheigth * 0.2,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         color: Colors.white),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Revenue on: $selectedDate:",
-                            style: GoogleFonts.judson(
-                                textStyle: TextStyle(
-                                    color: const Color.fromARGB(
-                                        255, 137, 235, 140),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
+                          Center(
+                            child: Text(
+                              "Revenue on: $selectedDate:",
+                              style: GoogleFonts.judson(
+                                  textStyle: TextStyle(
+                                      color: const Color.fromARGB(
+                                          255, 137, 235, 140),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                            ),
                           ),
                           Text(
                             "₹${revenueByDate[selectedDate]!.toStringAsFixed(2)}",

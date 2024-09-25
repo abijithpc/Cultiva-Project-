@@ -22,7 +22,7 @@ class _AddnewproductState extends State<Addnewproduct> {
   TextEditingController productController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  TextEditingController ProductquantityController = TextEditingController();
+  TextEditingController productquantityController = TextEditingController();
   File? _selectedProductImage;
   List<Product> allProducts = [];
 
@@ -196,7 +196,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                             ),
                             const SizedBox(height: 10),
                             TextFormField(
-                              controller: ProductquantityController,
+                              controller: productquantityController,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               keyboardType: TextInputType.number,
@@ -223,7 +223,7 @@ class _AddnewproductState extends State<Addnewproduct> {
                                     selectCategory: _selectCategory!,
                                     selectedProductImage: _selectedProductImage,
                                     productQuantityController:
-                                        ProductquantityController);
+                                        productquantityController);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:

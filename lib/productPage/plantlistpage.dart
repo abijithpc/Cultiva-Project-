@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:cultiva/function/productpage/editproduct.dart';
 import 'package:cultiva/function/productpage/editanddelete.dart';
+import 'package:cultiva/function/productpage/editproduct.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/productdetails.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class Plantlistpage extends StatelessWidget {
   final String category;
-  const Plantlistpage({Key? key, required this.category}) : super(key: key);
+  const Plantlistpage({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {

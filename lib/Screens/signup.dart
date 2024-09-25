@@ -138,7 +138,7 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
+                  SizedBox(
                     width: screenWidth * 0.85,
                     child: TextFormField(
                       obscureText: isSignUpPassword,

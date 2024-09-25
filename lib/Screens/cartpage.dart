@@ -273,7 +273,7 @@ class _CartpageState extends State<Cartpage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Dashboard(
+                                builder: (context) => dashboard(
                                       totalRevenue: finalTotalPrice,
                                       soldProducts: totalQuantity,
                                     )));

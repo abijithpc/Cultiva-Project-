@@ -1,7 +1,12 @@
+
+// ignore_for_file: camel_case_types
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class CarouselItems extends StatelessWidget {
+class carousel_Items extends StatelessWidget {
+  const carousel_Items({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,17 +32,15 @@ class CarouselItems extends StatelessWidget {
           'Assets/CarouselImage/scott-webb-hDyO6rr3kqk-unsplash.jpg',
           'Assets/CarouselImage/scott-webb-WwWkgOMU8H8-unsplash.jpg'
         ]
-            .map((item) => Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      item,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-                  ),
-                ))
+            .map((item) => ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                item,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ))
             .toList(),
       ),
     );

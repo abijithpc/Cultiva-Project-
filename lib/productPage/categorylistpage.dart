@@ -6,8 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class Categorylistpage extends StatefulWidget {
   final List<String> categories;
-  const Categorylistpage({Key? key, required this.categories})
-      : super(key: key);
+  const Categorylistpage({super.key, required this.categories});
 
   @override
   State<Categorylistpage> createState() => _CategorylistpageState();

@@ -23,7 +23,7 @@ class Outofstock extends StatelessWidget {
                     num.tryParse(product.productQuantity.toString()) ?? 0;
                 final soldQuantity = getSoldQuantity(product.productname);
                 final remainingStock = initalStock - soldQuantity;
-                return remainingStock < 10;
+                return remainingStock <= 0;
               }).toList();
               if (outOfStockProducts.isEmpty) {
                 return const Center(

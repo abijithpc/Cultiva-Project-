@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cultiva/function/productselled/showselectedproductdata.dart';
 import 'package:cultiva/function/savedetails/savedetails.dart';
 import 'package:cultiva/model/product.dart';

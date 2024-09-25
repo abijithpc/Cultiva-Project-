@@ -1,28 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_types
+
 part of 'dashboard.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DashboardDataAdapter extends TypeAdapter<DashboardData> {
+class dashboardDataAdapter extends TypeAdapter<dashboardData> {
   @override
   final int typeId = 5;
 
   @override
-  DashboardData read(BinaryReader reader) {
+  dashboardData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return DashboardData(
-      totalProduct: fields[0] as int?,
-    );
+    return dashboardData()..totalProduct = fields[0] as int?;
   }
 
   @override
-  void write(BinaryWriter writer, DashboardData obj) {
+  void write(BinaryWriter writer, dashboardData obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -35,7 +35,7 @@ class DashboardDataAdapter extends TypeAdapter<DashboardData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DashboardDataAdapter &&
+      other is dashboardDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

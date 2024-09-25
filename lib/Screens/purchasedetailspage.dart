@@ -12,12 +12,11 @@ class Purchasedetailspage extends StatelessWidget {
   final List<Sellinfo> customerSellInfo;
 
   const Purchasedetailspage(
-      {Key? key, required this.customerName, required this.customerSellInfo})
-      : super(key: key);
+      {super.key, required this.customerName, required this.customerSellInfo});
 
   @override
   Widget build(BuildContext context) {
-    final ProductBox = Hive.box<Product>('productBox');
+    final productBox = Hive.box<Product>('productBox');
     final Sellinfo customerDetails = customerSellInfo.first;
 
     return Scaffold(
@@ -84,7 +83,7 @@ class Purchasedetailspage extends StatelessWidget {
                 itemCount: customerSellInfo.length,
                 itemBuilder: (context, index) {
                   final sellInfo = customerSellInfo[index];
-                  final product = ProductBox.values.firstWhere(
+                  final product = productBox.values.firstWhere(
                       (prod) => prod.productname == sellInfo.product,
                       orElse: () => Product(
                             productname: 'productname',
