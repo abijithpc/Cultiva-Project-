@@ -1,5 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:developer';
 
+import 'package:cultiva/Screens/mainpage.dart';
 import 'package:cultiva/function/productselled/showselectedproductdata.dart';
 import 'package:cultiva/function/savedetails/savedetails.dart';
 import 'package:cultiva/model/product.dart';
@@ -52,6 +53,7 @@ class _ProductselledState extends State<Productselled> {
       body: Container(
         width: screenWidth,
         height: screenheigth,
+        
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
@@ -163,33 +165,45 @@ class _ProductselledState extends State<Productselled> {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            final box = await Hive.openBox<Sellinfo>('sellBox');
-                            if (_formKey.currentState!.validate()) {
-                              for (var product in selectedProducts) {
-                                await saveDetails(
-                                  customerName: customernameCon.text,
-                                  customerNumber: customerNumberCon.text,
-                                  product: product['product'].productname!,
-                                  quantity: product['quantity'],
-                                  totalPrice: selectedProducts.fold(
-                                    0,
-                                    (sum, item) {
-                                      final product = item['product'];
-                                      final quantity = item['quantity'];
-                                      return sum +
-                                          (int.parse(product.price!) *
-                                              quantity);
-                                    },
-                                  ),
-                                  sellBox: box,
-                                );
-                              }
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text('Details Added Successfully')));
+                            try {
+                              final box =
+                                  await Hive.openBox<Sellinfo>('sellBox');
+                              if (_formKey.currentState!.validate()) {
+                                for (var product in selectedProducts) {
+                                  await saveDetails(
+                                    customerName: customernameCon.text,
+                                    customerNumber: customerNumberCon.text,
+                                    product: product['product'].productname!,
+                                    quantity: product['quantity'],
+                                    totalPrice: selectedProducts.fold(
+                                      0,
+                                      (sum, item) {
+                                        final product = item['product'];
+                                        final quantity = item['quantity'];
+                                        return sum +
+                                            (int.parse(product.price!) *
+                                                quantity);
+                                      },
+                                    ),
+                                    sellBox: box,
+                                  );
+                                }
+                                if (!mounted) return;
+                                log("data saved....");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Details Added Successfully')));
 
-                              Navigator.pop(context);
+                                // ignore: use_build_context_synchronously
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Mainpage(),
+                                    ));
+                              }
+                            } catch (e) {
+                              log("error : === $e");
                             }
                           },
                           style: ElevatedButton.styleFrom(

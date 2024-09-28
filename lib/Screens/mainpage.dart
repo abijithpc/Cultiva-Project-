@@ -12,8 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class Mainpage extends StatefulWidget {
   final Sellinfo? sellinfo;
   final Product? selectedProduct;
-  const Mainpage(
-      {super.key, required this.sellinfo, required this.selectedProduct});
+  const Mainpage({super.key, this.sellinfo, this.selectedProduct});
 
   @override
   State<Mainpage> createState() => _MainpageState();
