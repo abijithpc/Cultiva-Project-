@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cultiva/Screens/mainpage.dart';
+import 'package:cultiva/Screens/MainPage/mainpage.dart';
 import 'package:cultiva/function/productselled/showselectedproductdata.dart';
 import 'package:cultiva/function/savedetails/savedetails.dart';
 import 'package:cultiva/model/product.dart';

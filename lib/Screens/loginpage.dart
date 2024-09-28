@@ -1,5 +1,5 @@
+import 'package:cultiva/Screens/Signup/signup.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
-import 'package:cultiva/Screens/signup.dart';
 import 'package:cultiva/function/loginpage/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

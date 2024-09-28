@@ -1,4 +1,4 @@
-import 'package:cultiva/Screens/mainpage.dart';
+import 'package:cultiva/Screens/MainPage/mainpage.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

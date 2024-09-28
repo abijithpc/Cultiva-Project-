@@ -1,5 +1,5 @@
 import 'package:cultiva/Screens/loginhomescreen.dart';
-import 'package:cultiva/Screens/mainpage.dart';
+import 'package:cultiva/Screens/MainPage/mainpage.dart';
 import 'package:cultiva/model/cartdata.dart';
 import 'package:cultiva/model/category.dart';
 import 'package:cultiva/model/dashboard.dart';

@@ -1,7 +1,7 @@
 import 'package:cultiva/Screens/CartPage/Widget/customerdetails.dart';
 import 'package:cultiva/Screens/CartPage/Widget/finaltotalprice.dart';
 import 'package:cultiva/Screens/CartPage/Widget/productdetails.dart';
-import 'package:cultiva/Screens/purchasedetailspage.dart';
+import 'package:cultiva/Screens/PurchaseDetails/purchasedetailspage.dart';
 import 'package:cultiva/function/cartpage/calculate_totalsum.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
