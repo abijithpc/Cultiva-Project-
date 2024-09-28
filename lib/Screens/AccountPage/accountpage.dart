@@ -5,8 +5,8 @@ import 'package:cultiva/Account%20Pages/outofstock.dart';
 import 'package:cultiva/Account%20Pages/privacy_policy.dart';
 import 'package:cultiva/Account%20Pages/profile.dart';
 import 'package:cultiva/Account%20Pages/terms_condition.dart';
+import 'package:cultiva/Screens/AccountPage/Widget/accountcard.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
-import 'package:cultiva/widget/accountcard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,7 +68,8 @@ class _AccountpagesState extends State<Accountpages> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Addnewproduct(categories: const [])),
+                          builder: (context) =>
+                              Addnewproduct(categories: const [])),
                     );
                   },
                 ),

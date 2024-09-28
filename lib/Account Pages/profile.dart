@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cultiva/Account%20Pages/editProfile.dart';
+import 'package:cultiva/Account%20Pages/EditProfile/editprofile.dart';
 import 'package:cultiva/Screens/loginhomescreen.dart';
 import 'package:cultiva/function/profile/profile.dart';
 import 'package:cultiva/model/model.dart';

@@ -1,7 +1,8 @@
-import 'package:cultiva/Account%20Pages/dashboard.dart';
+import 'package:cultiva/Screens/CartPage/Widget/customerdetails.dart';
+import 'package:cultiva/Screens/CartPage/Widget/finaltotalprice.dart';
+import 'package:cultiva/Screens/CartPage/Widget/productdetails.dart';
 import 'package:cultiva/Screens/purchasedetailspage.dart';
 import 'package:cultiva/function/cartpage/calculate_totalsum.dart';
-import 'package:cultiva/function/dateformat.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
@@ -136,36 +137,9 @@ class _CartpageState extends State<Cartpage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Name: ${customerSellInfo.first.customerName ?? 'Unknown'}',
-                                          style: GoogleFonts.judson(
-                                            textStyle: TextStyle(fontSize: 18),
-                                          ),
-                                        ),
-                                        Text(
-                                          'PhoneNumber: ${customerSellInfo.first.customerNumber ?? 'Unknown'}',
-                                          style: GoogleFonts.judson(
-                                            textStyle: TextStyle(fontSize: 18),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Date:${customerSellInfo.first.sellDate != null ? formatDate(customerSellInfo.first.sellDate!) : 'No Date'}',
-                                          style: GoogleFonts.judson(
-                                            textStyle: TextStyle(fontSize: 18),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Total Price: ₹${totalPriceCustomer.toStringAsFixed(2)}',
-                                          style: GoogleFonts.judson(
-                                              textStyle:
-                                                  TextStyle(fontSize: 18)),
-                                        ),
-                                      ],
-                                    ),
+                                    CustomerDetails(
+                                        customerSellInfo: customerSellInfo,
+                                        totalPriceCustomer: totalPriceCustomer),
                                     IconButton(
                                       onPressed: () {
                                         showDialog(
@@ -200,47 +174,9 @@ class _CartpageState extends State<Cartpage> {
                                   ],
                                 ),
                                 Divider(color: Colors.black),
-                                Column(
-                                  children: customerSellInfo.map((sellInfo) {
-                                    final product =
-                                        productBox.values.firstWhere(
-                                      (prod) =>
-                                          prod.productname == sellInfo.product,
-                                      orElse: () => Product(
-                                        productname: 'Unknown',
-                                        description: 'description',
-                                        price: '0',
-                                        productimage: '',
-                                        producttype: 'Unknown',
-                                      ),
-                                    );
-                                    return Row(
-                                      children: [
-                                        SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            Text(
-                                              product.productname ?? 'Unknown',
-                                              style: GoogleFonts.judson(
-                                                textStyle: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                            Text(
-                                                'Quantity: ${sellInfo.quantity}'),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  }).toList(),
-                                ),
+                                ProductDetails(
+                                    customerSellInfo: customerSellInfo,
+                                    productBox: productBox),
                               ],
                             ),
                           ),
@@ -249,38 +185,9 @@ class _CartpageState extends State<Cartpage> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: GestureDetector(
-                      child: Center(
-                        child: Text(
-                          "Final Total Price: ₹${finalTotalPrice.toStringAsFixed(2)}",
-                          style: GoogleFonts.judson(
-                              textStyle: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      const Color.fromARGB(255, 14, 14, 14))),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => dashboard(
-                                      totalRevenue: finalTotalPrice,
-                                      soldProducts: totalQuantity,
-                                    )));
-                      },
-                    ),
-                  ),
-                ),
+                FinalTotalPrice(
+                    finalTotalPrice: finalTotalPrice,
+                    totalQuantity: totalQuantity),
               ],
             );
           },

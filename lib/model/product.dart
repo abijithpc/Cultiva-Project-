@@ -26,7 +26,7 @@ class Product extends HiveObject {
       {required this.productname,
       required this.description,
       required this.price,
-      required this.productimage,
+      this.productimage,
       required this.producttype,
       this.productQuantity});
 }
