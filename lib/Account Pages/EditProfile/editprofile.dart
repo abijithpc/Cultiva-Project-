@@ -8,7 +8,6 @@ import 'package:cultiva/function/saveprofile/saveprofile.dart';
 import 'package:cultiva/model/model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Editprofile extends StatefulWidget {
   final User user;
@@ -41,21 +40,11 @@ class _EditprofileState extends State<Editprofile> {
     }
   }
 
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenheigth = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -66,39 +55,43 @@ class _EditprofileState extends State<Editprofile> {
       ),
       body: SizedBox(
         width: screenWidth,
-        height: screenheigth,
+        height: screenHeight,
         child: Padding(
           padding: const EdgeInsets.all(13.0),
           child: Form(
             child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  EditpictureSection(image: _image),
-                  const SizedBox(
-                    height: 20,
+                  EditpictureSection(
+                    image: _image,
+                    onImagePicked: (newImage) {
+                      setState(() {
+                        _image = newImage;
+                        imageCache.clear();
+                        imageCache.clearLiveImages();
+                      });
+                    },
                   ),
+                  const SizedBox(height: 20),
                   EditFormField(
-                      controller: editusername,
-                      labelText: "Username",
-                      prefixIcon: Icon(Icons.person)),
-                  SizedBox(
-                    height: 20,
+                    controller: editusername,
+                    labelText: "Username",
+                    prefixIcon: Icon(Icons.person),
                   ),
+                  const SizedBox(height: 20),
                   EditFormField(
-                      controller: editphonenumber,
-                      labelText: "PhoneNumber",
-                      prefixIcon: Icon(Icons.phone)),
-                  SizedBox(
-                    height: 20,
+                    controller: editphonenumber,
+                    labelText: "PhoneNumber",
+                    prefixIcon: Icon(Icons.phone),
                   ),
+                  const SizedBox(height: 20),
                   EditFormField(
-                      controller: editemail,
-                      labelText: "Email Id",
-                      prefixIcon: Icon(Icons.email)),
-                  SizedBox(
-                    height: 20,
+                    controller: editemail,
+                    labelText: "Email Id",
+                    prefixIcon: Icon(Icons.email),
                   ),
+                  const SizedBox(height: 20),
                   PasswordField(
                     controller: editpassword,
                     isSecurePassword: isSecurePassword,
@@ -108,22 +101,22 @@ class _EditprofileState extends State<Editprofile> {
                       });
                     },
                   ),
-                  SizedBox(
-                    height: screenheigth * .02,
-                  ),
+                  SizedBox(height: screenHeight * 0.02),
                   SaveButton(
                     onSave: () {
-                      setState(() {
-                        saveProfile(
-                          widget.user,
-                          editusername,
-                          editphonenumber,
-                          editemail,
-                          editpassword,
-                          _image,
-                          context,
-                        );
-                      });
+                      saveProfile(
+                        widget.user,
+                        editusername,
+                        editphonenumber,
+                        editemail,
+                        editpassword,
+                        _image,
+                        context,
+                      );
+                      if (_image != null) {
+                        widget.user.profileImage = _image!.path;
+                      }
+                      Navigator.pop(context, widget.user);
                     },
                   )
                 ],
@@ -133,17 +126,5 @@ class _EditprofileState extends State<Editprofile> {
         ),
       ),
     );
-  }
-
-  Widget tooglePassword() {
-    return IconButton(
-        onPressed: () {
-          setState(() {
-            isSecurePassword = !isSecurePassword;
-          });
-        },
-        icon: isSecurePassword
-            ? Icon(Icons.visibility)
-            : Icon(Icons.visibility_off));
   }
 }

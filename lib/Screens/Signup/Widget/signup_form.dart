@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:cultiva/function/signup.dart';
 
 class SignupForm extends StatefulWidget {
+  const SignupForm({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SignupFormState createState() => _SignupFormState();
 }
 

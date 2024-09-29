@@ -14,7 +14,7 @@ class Header extends StatelessWidget {
         style: GoogleFonts.judson(
           textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
         ),
-        colors: [Colors.green, Color.fromARGB(255, 199, 194, 194)],
+        colors: const [Colors.green, Color.fromARGB(255, 199, 194, 194)],
       ),
     );
   }

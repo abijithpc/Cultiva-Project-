@@ -1,5 +1,5 @@
 import 'package:cultiva/Account%20Pages/productselled.dart';
-import 'package:cultiva/Account%20Pages/revenuesection.dart';
+import 'package:cultiva/Account%20Pages/RevenueSection/revenuesection.dart';
 import 'package:cultiva/Screens/AccountPage/accountpage.dart';
 import 'package:cultiva/Screens/CartPage/cartpage.dart';
 import 'package:cultiva/Screens/Homepage/homepage.dart';

@@ -1,9 +1,9 @@
 // accountpages.dart
 import 'package:cultiva/Account%20Pages/addnewproduct.dart';
-import 'package:cultiva/Account%20Pages/outofstock.dart';
-import 'package:cultiva/Account%20Pages/privacy_policy.dart';
-import 'package:cultiva/Account%20Pages/profile.dart';
-import 'package:cultiva/Account%20Pages/terms_condition.dart';
+import 'package:cultiva/Account%20Pages/OutofStock/outofstock.dart';
+import 'package:cultiva/Account%20Pages/PrivacyAndPolicy/privacy_policy.dart';
+import 'package:cultiva/Account%20Pages/Profile/profile.dart';
+import 'package:cultiva/Account%20Pages/TermsAndCondition/terms_condition.dart';
 import 'package:cultiva/Screens/AccountPage/Widget/accountcard.dart';
 import 'package:cultiva/Screens/loginhomescreens.dart/loginhomescreen.dart';
 import 'package:flutter/material.dart';

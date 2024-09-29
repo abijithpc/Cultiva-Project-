@@ -23,13 +23,13 @@ class ViewCategoryBtn extends StatelessWidget {
           ),
         );
       },
-      child: Text('View Categories'),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
+      child: Text('View Categories'),
     );
   }
 }

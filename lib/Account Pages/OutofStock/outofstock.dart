@@ -1,7 +1,7 @@
+import 'package:cultiva/Account%20Pages/OutofStock/Widget/outofstockcard.dart';
 import 'package:cultiva/function/soldquantity/soldquantity.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class Outofstock extends StatelessWidget {
@@ -43,44 +43,8 @@ class Outofstock extends StatelessWidget {
                   final soldQauntity = getSoldQuantity(product.productname);
                   final remainingStock = intialStock - soldQauntity;
 
-                  return Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  product.productname!,
-                                  style: GoogleFonts.judson(
-                                      textStyle: TextStyle(fontSize: 20)),
-                                ),
-                                Text(
-                                  "Remaining Stock: $remainingStock",
-                                  style: GoogleFonts.judson(
-                                      textStyle: TextStyle(
-                                          color: Colors.red, fontSize: 18)),
-                                ),
-                                Text(
-                                  product.price!,
-                                  style: GoogleFonts.judson(
-                                      textStyle: TextStyle(fontSize: 18)),
-                                )
-                              ],
-                            )),
-                            Icon(
-                              Icons.warning,
-                              color: Colors.red,
-                              size: 30,
-                            )
-                          ],
-                        ),
-                      ));
+                  return OutOfStockCard(
+                      product: product, remainingStock: remainingStock);
                 },
               );
             },

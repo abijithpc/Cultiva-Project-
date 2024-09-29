@@ -19,6 +19,7 @@ Future<void> saveDetails({
         sellDate: DateTime.now());
     await sellBox.add(sellinfo);
   } catch (e) {
+    // ignore: avoid_print
     print("$e");
   }
 }

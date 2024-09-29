@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:cultiva/Screens/MainPage/mainpage.dart';
@@ -195,6 +197,7 @@ class _ProductselledState extends State<Productselled> {
                                         content: Text(
                                             'Details Added Successfully')));
 
+                                // ignore: duplicate_ignore
                                 // ignore: use_build_context_synchronously
                                 Navigator.pushReplacement(
                                     context,
