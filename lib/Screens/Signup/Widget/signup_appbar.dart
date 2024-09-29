@@ -1,7 +1,9 @@
+import 'package:cultiva/Screens/loginhomescreens.dart/loginhomescreen.dart';
 import 'package:flutter/material.dart';
-import 'package:cultiva/Screens/loginhomescreen.dart';
 
 class SignupAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const SignupAppBar({super.key});
+
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 

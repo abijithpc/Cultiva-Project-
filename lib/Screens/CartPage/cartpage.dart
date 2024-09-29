@@ -3,6 +3,8 @@ import 'package:cultiva/Screens/CartPage/Widget/finaltotalprice.dart';
 import 'package:cultiva/Screens/CartPage/Widget/productdetails.dart';
 import 'package:cultiva/Screens/PurchaseDetails/purchasedetailspage.dart';
 import 'package:cultiva/function/cartpage/calculate_totalsum.dart';
+import 'package:cultiva/function/cartpage/calculatetotalquatity.dart';
+import 'package:cultiva/function/cartpage/deletesellinfo.dart';
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/model/sellinfo.dart';
 import 'package:flutter/material.dart';
@@ -26,28 +28,6 @@ class _CartpageState extends State<Cartpage> {
     super.initState();
     sellInfoBox = Hive.box<Sellinfo>('sellBox');
     productBox = Hive.box<Product>('productBox');
-  }
-
-  void deleteSellInfo(String customerName) {
-    setState(() {
-      final entriesToDelete = sellInfoBox.values
-          .where((sellInfo) => sellInfo.customerName == customerName)
-          .toList();
-      for (var sellInfo in entriesToDelete) {
-        sellInfoBox.delete(sellInfo.key);
-      }
-    });
-  }
-
-  int calculateTotalQuantity(Map<String, List<Sellinfo>> groupedSellinfo) {
-    int totalQuantity = 0;
-    for (var customerName in groupedSellinfo.keys) {
-      final customerSellinfo = groupedSellinfo[customerName]!;
-      for (var sellInfo in customerSellinfo) {
-        totalQuantity += sellInfo.quantity ?? 0;
-      }
-    }
-    return totalQuantity;
   }
 
   @override
@@ -157,7 +137,8 @@ class _CartpageState extends State<Cartpage> {
                                               ),
                                               TextButton(
                                                 onPressed: () {
-                                                  deleteSellInfo(customerName);
+                                                  deleteSellInfo(sellInfoBox,
+                                                      customerName);
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text("Yes"),

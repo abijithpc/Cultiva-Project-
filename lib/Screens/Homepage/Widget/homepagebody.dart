@@ -49,6 +49,9 @@ class HomepageBody extends StatelessWidget {
               categoryProvider: categoryProvider,
               loadProducts: loadProducts,
             ),
+            SizedBox(
+              height: 10,
+            ),
             ViewCategoryBtn(categoryProvider: categoryProvider),
             SizedBox(height: 20),
             Carousel2(),
