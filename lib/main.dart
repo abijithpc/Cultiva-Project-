@@ -1,5 +1,4 @@
-import 'package:cultiva/Screens/MainPage/mainpage.dart';
-import 'package:cultiva/Screens/loginhomescreens.dart/loginhomescreen.dart';
+import 'package:cultiva/Screens/SplashScreen/splashscreen.dart';
 import 'package:cultiva/model/cartdata.dart';
 import 'package:cultiva/model/category.dart';
 import 'package:cultiva/model/dashboard.dart';
@@ -58,12 +57,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn
-          ? Mainpage(
-              selectedProduct: null,
-              sellinfo: null,
-            )
-          : Loginhomescreen(),
+      home: Splashscreen(),
     );
   }
 }
