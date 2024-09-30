@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 
 import 'package:cultiva/Screens/MainPage/mainpage.dart';
@@ -55,7 +53,6 @@ class _ProductselledState extends State<Productselled> {
       body: Container(
         width: screenWidth,
         height: screenheigth,
-        
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
@@ -162,7 +159,52 @@ class _ProductselledState extends State<Productselled> {
                         const SizedBox(
                           height: 25,
                         ),
-                        SizedBox(
+                        // Scrollable section for displaying selected products
+                        Container(
+                          height: 150, // Set a fixed height for scrolling
+                          child: ListView.builder(
+                            itemCount: selectedProducts.length,
+                            itemBuilder: (context, index) {
+                              final productMap = selectedProducts[index];
+                              final product = productMap['product'] as Product;
+                              final quantity = productMap['quantity'];
+                              final price = product.price;
+
+                              return Card(
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 5),
+                                child: ListTile(
+                                  leading: Container(
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                  title: Text(
+                                    product.productname!,
+                                    style: GoogleFonts.judson(
+                                      textStyle: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.remove_circle_outline,
+                                        color: Colors.red),
+                                    onPressed: () {
+                                      _removeProductFromSelection(product);
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
                           height: 10,
                         ),
                         ElevatedButton(
@@ -243,5 +285,11 @@ class _ProductselledState extends State<Productselled> {
         });
       });
     }
+  }
+
+  void _removeProductFromSelection(Product product) {
+    setState(() {
+      selectedProducts.removeWhere((item) => item['product'] == product);
+    });
   }
 }
