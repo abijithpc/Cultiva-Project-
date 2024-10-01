@@ -1,3 +1,5 @@
+// ignore_for_file: await_only_futures
+
 import 'package:cultiva/model/product.dart';
 import 'package:cultiva/productPage/plantlistpage.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class _CategorylistpageState extends State<Categorylistpage> {
   }
 
   Future<void> _openBox() async {
-    productBox = await Hive.openBox<Product>('categoryBox');
+    productBox = await Hive.box<Product>('categoryBox');
   }
 
   void _deleteCategory(String category) {

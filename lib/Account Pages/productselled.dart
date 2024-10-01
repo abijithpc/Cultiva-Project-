@@ -160,15 +160,13 @@ class _ProductselledState extends State<Productselled> {
                           height: 25,
                         ),
                         // Scrollable section for displaying selected products
-                        Container(
+                        SizedBox(
                           height: 150, // Set a fixed height for scrolling
                           child: ListView.builder(
                             itemCount: selectedProducts.length,
                             itemBuilder: (context, index) {
                               final productMap = selectedProducts[index];
                               final product = productMap['product'] as Product;
-                              final quantity = productMap['quantity'];
-                              final price = product.price;
 
                               return Card(
                                 elevation: 3,
@@ -178,7 +176,7 @@ class _ProductselledState extends State<Productselled> {
                                 margin: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 5),
                                 child: ListTile(
-                                  leading: Container(
+                                  leading: SizedBox(
                                     width: 50,
                                     height: 50,
                                   ),
